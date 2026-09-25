@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云手机 SaaS 入门 · 新员工培训</title>
+<style>
+:root{
+  --hero-bg:linear-gradient(135deg,#ffffff 0%,#ffffff 100%);--hero-ink:#1d1d1f;--hero-sub:#6e6e73;--hero-chip:#ffffff;--hero-chip-line:#d2d2d7;--hero-chip-sub:#424245;--hero-meta:#6e6e73;--hero-glow:transparent; --bg:#fbfbfd; --panel:#ffffff; --panel-2:#f5f5f7; --ink:#1d1d1f; --body:#424245;
+  --muted:#6e6e73; --line:#d2d2d7; --accent:#0071e3; --accent-soft:#eef4ff;
+  --green:#0b7a4a; --green-soft:#e9f7f0; --amber:#a9600a; --amber-soft:#fdf4e5;
+  --red:#c8102e; --red-soft:#fdeef0; --violet:#5e5ce6; --violet-soft:#f1ecfd;
+  --shadow:none;
+  --radius:20px; --maxw:820px;
+}
+[data-theme="dark"]{
+  --hero-bg:linear-gradient(135deg,#1d1d1f 0%,#1d1d1f 100%);--hero-ink:#f5f5f7;--hero-sub:#a1a1a6;--hero-chip:#2d2d2f;--hero-chip-line:#38383a;--hero-chip-sub:#c7c7cc;--hero-meta:#a1a1a6;--hero-glow:transparent; --bg:#000000; --panel:#1d1d1f; --panel-2:#2d2d2f; --ink:#f5f5f7; --body:#c7c7cc;
+  --muted:#a1a1a6; --line:#38383a; --accent:#2997ff; --accent-soft:#0a2540;
+  --green:#30d158; --green-soft:#0e2a1c; --amber:#ff9f0a; --amber-soft:#2b2205;
+  --red:#ff453a; --red-soft:#2b1012; --violet:#b39bf5; --violet-soft:#241a33;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--ink);line-height:1.35;margin:0}
+a{color:var(--accent)}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;z-index:50;
+  background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 20px}
+.brand{font-weight:700;color:var(--ink);font-size:15px;white-space:nowrap}
+.brand .sub{color:var(--accent)}
+.spacer{flex:1}
+.tbtn{text-decoration:none;border:1px solid var(--line);background:var(--panel);color:var(--body);border-radius:10px;
+  padding:7px 13px;font-size:13px;cursor:pointer;font-family:inherit;transition:.16s;white-space:nowrap}
+.tbtn:hover{border-color:var(--accent);color:var(--accent)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;transition:width .1s}
+
+.shell{display:flex;gap:38px;max-width:1260px;margin:0 auto;padding:84px 24px 120px}
+.sidenav{position:sticky;top:84px;align-self:flex-start;width:218px;flex:0 0 218px;
+  max-height:calc(100vh - 115px);overflow-y:auto;padding-right:6px}
+.navtitle{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin:0 0 10px 10px}
+.sidenav a{display:block;padding:7px 10px;border-radius:9px;color:var(--muted);text-decoration:none;
+  font-size:13.5px;border-left:2px solid transparent;transition:.15s}
+.sidenav a:hover{background:var(--panel-2);color:var(--ink)}
+.sidenav a.active{color:var(--accent);background:var(--accent-soft);border-left-color:var(--accent);font-weight:600}
+main{flex:1;min-width:0;max-width:var(--maxw)}
+
+section{margin-bottom:28px;scroll-margin-top:80px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:32px 34px;box-shadow:var(--shadow)}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+h2.sec{font-size:25px;margin-bottom:8px;letter-spacing:-.2px}
+.lead{color:var(--muted);font-size:15px;margin:0 0 24px}
+h3{font-size:17.5px;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--accent)}
+h4{font-size:15.5px;margin:20px 0 8px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:24px}
+li{margin-bottom:8px}
+code{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+  font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+strong{color:var(--ink)}
+
+.hero{background:var(--hero-bg);
+  border:none;color:var(--hero-chip-sub);padding:56px 42px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:330px;height:330px;border-radius:50%;
+  background:radial-gradient(circle,var(--hero-glow),transparent 68%)}
+.hero h1{color:var(--hero-ink);font-size:36px;letter-spacing:-.5px;margin-bottom:12px}
+.hero .sub{color:var(--hero-sub);font-size:16px;margin-bottom:28px}
+.hero .goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;position:relative;z-index:1}
+.hero .goal{background:var(--hero-chip);border:1px solid var(--hero-chip-line);border-radius:12px;padding:15px 17px}
+.hero .goal b{display:block;color:var(--hero-ink);font-size:14px;margin-bottom:5px}
+.hero .goal span{font-size:13px;color:var(--hero-chip-sub);line-height:1.65}
+.hero .meta{margin-top:28px;font-size:12.5px;color:var(--hero-meta);position:relative;z-index:1}
+
+.note{border-radius:12px;padding:16px 20px;margin:18px 0;font-size:15px}
+.note > b:first-child{display:block;margin-bottom:5px}
+.note.blue{background:var(--accent-soft)} .note.blue b{color:var(--accent)}
+.note.green{background:var(--green-soft)} .note.green b{color:var(--green)}
+.note.amber{background:var(--amber-soft)} .note.amber b{color:var(--amber)}
+.note.red{background:var(--red-soft)} .note.red b{color:var(--red)}
+
+.tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th{background:var(--panel-2);color:var(--ink);text-align:left;padding:12px 15px;font-weight:600;
+  font-size:13.5px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--panel-2)}
+
+.grid{display:grid;gap:16px;margin:18px 0}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.xcard{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:20px 22px;
+  cursor:pointer;transition:.18s;position:relative}
+.xcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.xcard .xt{font-weight:700;color:var(--ink);font-size:15.5px;display:flex;align-items:center;gap:9px}
+.xcard .xt .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:0 0 9px}
+.xcard .xh{font-size:13.5px;color:var(--muted);margin-top:7px}
+.xcard .xb{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px}
+.xcard.open .xb{display:block}
+.xcard.open{border-color:var(--accent);background:var(--panel)}
+.xcard .caret{position:absolute;right:18px;top:18px;color:var(--muted);font-size:13px;transition:.2s}
+.xcard.open .caret{transform:rotate(90deg);color:var(--accent)}
+.xcard.static{cursor:default}
+.xcard.static:hover{transform:none;border-color:var(--line)}
+
+figure{margin:22px 0;background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:20px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+.svg-node{cursor:pointer}
+.svg-node rect{transition:.18s}
+.svg-node:hover rect{stroke:var(--accent);stroke-width:2.5}
+.svg-node.on rect{stroke:var(--accent);stroke-width:2.8}
+.svg-node.dim{opacity:.4}
+.svg-label{font-size:13px;font-weight:600;fill:var(--ink);font-family:inherit}
+.svg-sub{font-size:11px;fill:var(--muted);font-family:inherit}
+.svg-arrow{stroke:var(--muted);stroke-width:1.6;fill:none}
+.detail{margin-top:16px;background:var(--panel);border:1px solid var(--accent);border-radius:12px;
+  padding:16px 20px;font-size:14.5px;min-height:66px}
+.detail > b:first-child{color:var(--accent);display:block;margin-bottom:4px}
+
+.steps{display:flex;flex-direction:column;gap:0;margin:18px 0}
+.step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:.15s}
+.step:last-child{border-bottom:none}
+.step:hover{background:var(--panel-2)}
+.step.on{background:var(--accent-soft);border-radius:11px;padding-left:14px;padding-right:14px}
+.step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--panel-2);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);font-size:14px}
+.step.on .n{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step .c{flex:1}
+.step .c > b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
+.step .c span{font-size:14px;color:var(--muted)}
+
+.ctl{margin-bottom:18px}
+.ctl label{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:7px;gap:12px}
+.ctl label b{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--accent);height:5px}
+.calc{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:24px 26px;margin:18px 0}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px;margin-top:20px;
+  padding-top:20px;border-top:1px solid var(--line)}
+.out .o{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.out .o .k{font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.out .o .v{font-size:22px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.4px}
+.out .o.hi .v{color:var(--green)}
+
+.chart{display:flex;align-items:flex-end;gap:3px;height:150px;margin:18px 0 8px;padding:0 2px}
+.chart .bar{flex:1;background:var(--accent);border-radius:3px 3px 0 0;transition:.25s;min-height:2px}
+.chart .bar.cut{background:var(--red);opacity:.75}
+.chart .bar.bill{background:var(--green)}
+.chartlegend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.chartlegend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.verdict{margin-top:16px;padding:15px 18px;border-radius:11px;font-size:14.5px;font-weight:600;line-height:1.7}
+.verdict.ok{background:var(--green-soft);color:var(--green)}
+.verdict.bad{background:var(--red-soft);color:var(--red)}
+
+.acc{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--panel)}
+.acc>button{width:100%;text-align:left;padding:15px 20px;background:transparent;border:none;font-family:inherit;
+  font-size:15.5px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:flex-start;line-height:1.6}
+.acc>button:hover{background:var(--panel-2)}
+.acc>button .qn{color:var(--accent);font-weight:700;flex:0 0 auto}
+.acc>button .plus{margin-left:auto;color:var(--muted);flex:0 0 auto;transition:.2s}
+.acc.open>button .plus{transform:rotate(45deg);color:var(--accent)}
+.acc .ans{display:none;padding:14px 20px 18px 52px;font-size:14.5px;border-top:1px solid var(--line)}
+.acc.open .ans{display:block}
+.acc .ans .say{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin-top:11px}
+
+.quiz{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:24px 26px}
+.q{margin-bottom:22px;padding-bottom:20px;border-bottom:1px dashed var(--line)}
+.q:last-of-type{border-bottom:none;margin-bottom:14px;padding-bottom:4px}
+.q .qt{font-weight:600;color:var(--ink);font-size:15.5px;margin-bottom:12px;display:flex;gap:10px}
+.q .qt .qn{color:var(--accent);flex:0 0 auto}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 15px;border:1px solid var(--line);border-radius:10px;
+  background:var(--panel);margin-bottom:8px;cursor:pointer;font-size:14.5px;transition:.14s}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px;accent-color:var(--accent);flex:0 0 auto;width:16px;height:16px}
+.opt.right{background:var(--green-soft);border-color:var(--green)}
+.opt.wrong{background:var(--red-soft);border-color:var(--red)}
+.exp{display:none;margin-top:12px;font-size:14px;background:var(--accent-soft);border-radius:10px;padding:13px 16px}
+.exp.show{display:block}
+.exp b{color:var(--accent)}
+.score{margin-top:20px;padding:20px 22px;border-radius:12px;background:var(--panel);border:1px solid var(--line);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.score .big{font-size:34px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.score .txt{font-size:14.5px}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:14.5px;
+  font-family:inherit;cursor:pointer;font-weight:600;transition:.15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+
+.gl{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.gl .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}
+.gl .row:last-child{border-bottom:none}
+.gl .row .t{padding:13px 16px;background:var(--panel-2);font-weight:600;color:var(--ink);font-size:14px}
+.gl .row .d{padding:13px 16px;font-size:14px}
+
+footer{max-width:var(--maxw);margin:0 auto;padding:0 24px 60px;color:var(--muted);font-size:13px}
+.srcs{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px 26px;margin-bottom:26px}
+.srcs ol{padding-left:22px;margin:0}
+.srcs li{margin-bottom:6px;font-size:13px;word-break:break-all}
+
+@media (max-width:1000px){
+  .shell{flex-direction:column;gap:0;padding:78px 16px 90px;max-width:100%;overflow-x:hidden}
+  .sidenav{position:static;width:auto;max-width:100%;min-width:0;flex:none;max-height:none;display:flex;gap:6px;
+    overflow-x:auto;padding:0 0 14px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+  .navtitle{display:none}
+  .sidenav a{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;border-radius:8px;flex:0 0 auto}
+  .sidenav a.active{border-left:none;border-bottom-color:var(--accent)}
+  main{max-width:100%;min-width:0;width:100%}
+  .card{padding:24px 20px}
+  .hero{padding:36px 22px}
+  .hero h1{font-size:27px}
+  .gl .row{grid-template-columns:1fr}
+  .gl .row .t{border-bottom:1px solid var(--line)}
+  .tablewrap{max-width:100%}
+}
+@media (max-width:600px){
+  .shell{padding:72px 12px 70px}
+  .topbar{padding:0 12px;gap:8px}
+  .brand{font-size:13.5px;overflow:hidden;text-overflow:ellipsis}
+  .brand .sub{display:none}
+  .tbtn{padding:6px 10px;font-size:12.5px}
+  #printBtn{display:none}
+  .card{padding:20px 15px}
+  .hero h1{font-size:23px}
+  h2.sec{font-size:21px}
+  .out{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))}
+  .chart{height:110px}
+  figure{padding:14px}
+}
+@media print{
+  .topbar,.sidenav{display:none}
+  .shell{padding:0}
+  .card{box-shadow:none;break-inside:avoid}
+  .acc .ans,.xcard .xb,.exp{display:block!important}
+}
+
+    /* ===== 布局 / 排版 / 表格修正（2026-09-24）===== */
+    .hero .goals:has(> :nth-child(4):last-child),
+    .grid.c2:has(> :nth-child(4):last-child),
+    .grid.c3:has(> :nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.c2:has(> :nth-child(7):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid.c3:has(> :nth-child(6):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+    body{line-break:strict;text-wrap:pretty}
+    h1,h2,h3{text-wrap:balance}
+    th,td{overflow-wrap:break-word}
+    .srcs li{word-break:normal}   /* 原规则是 break-all，URL/英文会被拦腰断 */
+    table.phases td:nth-child(1),table.phases td:nth-child(2),
+    table.phases th:nth-child(1),table.phases th:nth-child(2){white-space:nowrap}
+    @media(max-width:860px){.hero .goals,.grid.c2,.grid.c3{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:560px){.hero .goals,.grid.c2,.grid.c3{grid-template-columns:1fr!important}}
+  
+    /* ===== 排版统一：字号收敛为 7 档 + 阅读节奏（2026-09-24）=====
+       原 CSS 共 17 档字号（11–36px，含 12.5/13.5/14.5/15.5 半像素步进），层级压在一起。
+       这里只收敛与统一，不新增视觉元素；不改原规则，故各份 CSS 仍同源。 */
+    :root{--fs-d:32px;--fs-h2:23px;--fs-h3:18px;--fs-l:15.5px;--fs-m:15px;--fs-s:13.5px;--fs-xs:12.5px}
+    body{font-size:var(--fs-m);line-height:1.8}
+    p,li,.lead,.detail,.note,.verdict,.acc .ans,.opt,.gl .row .d,.xcard .xb{font-size:var(--fs-m);line-height:1.8}
+    li{word-break:normal;overflow-wrap:break-word}
+    .hero h1{font-size:var(--fs-d);line-height:1.3}
+    h2.sec{font-size:var(--fs-h2)}
+    h3{font-size:var(--fs-h3)}
+    h4,.xcard .xt,.acc>button,.q .qt,.step .c>b,.hero .sub,.btn{font-size:var(--fs-l)}
+    table,td,.gl .row .t,.ctl label,.score .txt,.step .n,.exp,code{font-size:var(--fs-m)}
+    th,.sidenav a,.brand{font-size:var(--fs-s)}
+    .tbtn,figcaption,.svg-label,footer,.srcs li,.hero .goal span,.xcard .xh{font-size:var(--fs-s)}
+    .hero .meta,.out .o .k,.chartlegend,.navtitle,.kicker,.svg-sub{font-size:var(--fs-xs)}
+    .out .o .v,.score .big{font-size:30px}
+    p,li,.lead,.detail,.note,.verdict{max-width:44em}
+    th{white-space:normal}   /* 原 CSS 给 th 挂了 nowrap，放大字号后会把列撑爆 */
+    th,td{overflow-wrap:break-word}   /* 中文按标点自然折行（标点处断才干净）；短标签由 nowrap 保住 */
+    /* 短短语类元素整词不断（卡片要点/标签/表头/导航）；长句仍按标点折行 */
+    .hero .goal span,.xcard .xt,.xcard .xh,.kicker,.navtitle,th,.tbtn,figcaption,.svg-label,.out .o .k,.chartlegend,.hero .meta,.sidenav a,.brand,.step .n,.step .c span,.score .txt,.ctl label{word-break:keep-all}
+    /* 强调串/卡片说明也别把词撕开（原「渠道贴|牌」「存|储」），只在标点、空格、斜杠处折行；实在放不下再兜底断字 */
+    b,.layer .lv,.layer .lk,.note,.lead,p,td{word-break:keep-all;overflow-wrap:break-word}
+    /* ===== 「分层对照」卡片：替掉原四列宽表（2026-09-24，用户要求换一种排版表达：弹窗/内嵌均可）=====
+       宽表的毛病：列窄 → 短语被折成两三层、行高不齐、必须横向扫行。改成「一张卡一个角色/层次」，
+       卡内「标签 : 说明」逐行读；配色沿用上方价值链图里各角色的颜色（蓝=我们 / 绿=客户 / 橙=终端）。
+       全部内容内嵌可见，不做折叠——培训材料要能扫读，藏进点击里反而慢。 */
+    .layers{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+    .layer{background:var(--cs,var(--panel-2));border:1px solid var(--cl,var(--line));border-radius:13px;padding:15px 18px 13px}
+    .layer .who{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink);font-size:16px;margin-bottom:4px}
+    .layer .who .dot{width:9px;height:9px;border-radius:50%;background:var(--cl,var(--muted));flex:0 0 auto}
+    .lrow{display:grid;grid-template-columns:132px 1fr;gap:14px;padding:8px 0;align-items:baseline}
+    .lrow + .lrow{border-top:1px dashed rgba(16,26,46,.10)}
+    .lrow .lk{color:var(--muted);font-size:13px;white-space:nowrap}
+    .lrow .lv{color:var(--body);font-size:15px;line-height:1.65}
+    @media (max-width:620px){.lrow{grid-template-columns:1fr;gap:2px;padding:7px 0}.lrow .lk{white-space:normal}}
+
+    /* 术语速查：与《云手机 ARM 基础》同步——术语蓝色加粗、释义同行、每行一条 */
+    #m6 .gl.gloss .row{display:block;padding:6px 15px;white-space:nowrap}
+    #m6 .gl.gloss .t{display:inline;background:none;border:none;padding:0;width:auto;font-size:12.5px;font-weight:700;color:var(--accent)}
+    #m6 .gl.gloss .t{margin-right:6px}
+    #m6 .gl.gloss .d{display:inline;padding:0;font-size:12.5px;line-height:1.7;white-space:nowrap}
+    @media(max-width:900px){#m6 .gl.gloss .row{white-space:normal}#m6 .gl.gloss .d{white-space:normal}}
+
+/* 并排卡片：正文块贴底对齐——短文案的空白收到正文上方，虚线分隔线与邻卡齐平 */
+.xcard{display:flex;flex-direction:column}
+.xcard .xb{margin-top:auto}
+/* ===== Apple 视觉层（结构/内容不动，只换视觉语言）===== */
+h1,h2,h3,h4,.hero h1{letter-spacing:-.022em}
+h2.sec,h3,h4{font-weight:600}
+h3{border-left:0!important;padding-left:0!important}
+.topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+.card{box-shadow:none}
+.xcard{background:var(--panel);border-radius:16px}
+.xcard,.acc>button,.opt,.check,.verdict,.layers,.layer{border-radius:14px}
+.tbtn{border-radius:980px;padding:7px 14px;font-weight:500}
+.btn{border-radius:980px;font-weight:500}
+code{border-radius:6px}
+input[type=number],input[type=text]{border-radius:12px}
+.hero{border:1px solid var(--line)}
+.hero .goal{border-radius:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+
+/* --- 收口：统一发丝线语言 / hero 提亮 / 低对比控件 --- */
+.card .help,.help{border:1px solid var(--line);border-style:solid;background:var(--panel-2)}
+.chip{color:var(--body)}
+.tgl,.tbtn{background:var(--panel)}
+.notice,.tip,.banner{border:1px solid var(--line);border-left:1px solid var(--line)!important;background:var(--panel-2);color:var(--body)}
+
+</style>
+<script>/*主题预置：在首次绘制前定好深浅，避免深色下闪白*/(function(){function d(){return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}try{localStorage.removeItem('qtrain-theme')}catch(e){}var s=null;try{s=sessionStorage.getItem('qtrain-theme')}catch(e){}if(s!=='dark'&&s!=='light')s=d()?'dark':'light';document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><img src="data:image/png;base64,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" alt="QT Phone" style="width:22px;height:22px;border-radius:6px;margin-right:9px;vertical-align:-5px">云手机 SaaS 入门<span class="sub"> · 新员工培训</span></div>
+  <a class="tbtn" href="index.html">← 课程目录</a>
+  <div class="spacer"></div>
+  <button class="tbtn" id="themeBtn">🌙 深色</button>
+  <button class="tbtn" id="printBtn" onclick="window.print()">打印 / 存 PDF</button>
+  <div class="progress" id="progress"></div>
+</div>
+
+<div class="shell">
+  <nav class="sidenav" id="nav"><div class="navtitle">课程目录</div></nav>
+  <main id="main">
+
+    <!-- ===== 封面 ===== -->
+    <section id="m0">
+      <div class="card hero">
+        <h1>云手机 SaaS 入门</h1>
+        <div class="sub">新员工培训 · 不需要任何技术背景 · 建议用时 20–30 分钟</div>
+        <div class="goals">
+          <div class="goal"><b>分清谁是谁</b><span>IaaS / PaaS / SaaS 三层，一句话说清我们站在哪一层</span></div>
+          <div class="goal"><b>记住一个口径</b><span>用户层只按「窗口」计费，SaaS 客户面前不提「板卡」</span></div>
+          <div class="goal"><b>说对计价单位</b><span>窗口、开窗密度、单窗口成本——三个词讲清「怎么算」</span></div>
+          <div class="goal"><b>分清三种视角</b><span>同一套资源：内部算成本、渠道谈规格、用户层谈窗口</span></div>
+        </div>
+        <div class="meta">内部培训材料 · 全部用大白话讲，不要求技术背景</div>
+      </div>
+    </section>
+
+    <!-- ===== M1 学习目标 ===== -->
+    <section id="m1">
+      <div class="card">
+        <div class="kicker">学习目标</div>
+        <h2 class="sec">这门课学完，你应该能……</h2>
+        <p class="lead">这一课不讲技术细节，只讲四件事——每一件都在你入职第一周就会用上。</p>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>要能做到</th><th style="white-space:nowrap">什么算达标</th></tr></thead>
+            <tbody>
+              <tr><td style="white-space:nowrap"><b>① 一句话讲清三层</b></td><td>能用「租毛坯房 / 精装公寓 / 住酒店」，把 IaaS、PaaS、SaaS 讲给一个完全不懂的人听</td></tr>
+              <tr><td style="white-space:nowrap"><b>② 守住计费口径</b></td><td>面对 SaaS 客户和终端用户，只说「窗口」和「单窗口成本」，不说「板卡」</td></tr>
+              <tr><td style="white-space:nowrap"><b>③ 分清三种视角</b></td><td>同一套资源，知道什么时候说「卡与开窗密度」，什么时候只说「窗口」</td></tr>
+              <tr><td style="white-space:nowrap"><b>④ 讲清一个取舍</b></td><td>能用跷跷板讲明白开窗密度与体验的关系，不把「越密越划算」当结论</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note blue">
+          <b>这份材料怎么用</b>按顺序看，每节一屏，看完做最后的随堂测验。测验里的每一道题，都能在前面几节找到答案。
+        </div>
+
+        <div class="note amber">
+          <b>先说清楚：这一课不碰数字</b>涉及成本结构、定价体系、渠道分成的内容属于<b>内部机密</b>，本材料一律不涉及。你要记的是「<b>怎么算、在哪个视角用什么词</b>」，不是「多少钱」。对外沟通时任何金额都要以正式发布的口径为准。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M2 第1课 三层回顾 ===== -->
+    <section id="m2">
+      <div class="card">
+        <div class="kicker">第 1 课</div>
+        <h2 class="sec">三层回顾：IaaS、PaaS、SaaS</h2>
+        <p class="lead">这三个词是云计算行业的地基。用租房打比方，一句话就能分清。</p>
+
+        <h3>房子还是那套房子，区别在于「你管多少事」</h3>
+        <div class="grid c3">
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>IaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">租毛坯房</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">房东给你<b>墙、地、水电</b>。装修、家具、打扫，全是你自己的事。</p>
+              <p style="margin:0"><b>一句话：</b>卖的是「资源」——服务器、网络、存储。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot"></span>PaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">租精装公寓</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">水电、家电、网络都弄好了，你<b>拎包入住</b>。</p>
+              <p style="margin:0"><b>一句话：</b>卖的是「能力」，调接口就能用。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>SaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">住酒店</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">什么都不用管，<b>付钱就住</b>。但你也不能改房间结构。</p>
+              <p style="margin:0"><b>一句话：</b>卖的是「成品」，打开就能用。<b>这是我们的客户在做的事。</b></p>
+            </div>
+          </div>
+        </div>
+
+        <h3>放到云手机这门生意里，长这样</h3>
+        <div class="layers">
+          <div class="layer" style="--cs:var(--panel-2);--cl:var(--muted)">
+            <div class="who"><span class="dot"></span>IaaS · 基础设施</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">机房里的服务器、网络、存储</div></div>
+            <div class="lrow"><div class="lk">行业里对应</div><div class="lv">租 ARM 服务器、拉带宽、拿公网 IP</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv">云厂商、机房</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--accent-soft);--cl:var(--accent)">
+            <div class="who"><span class="dot"></span>PaaS · 平台能力</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">把资源变成能调用的「能力」</div></div>
+            <div class="lrow"><div class="lk">行业里对应</div><div class="lv">调一次接口就开出一台云手机，能批量管、能看画面</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv"><b style="color:var(--accent)">我们</b></div></div>
+          </div>
+          <div class="layer" style="--cs:var(--green-soft);--cl:var(--green)">
+            <div class="who"><span class="dot"></span>SaaS · 现成软件</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">打开就能用的成品</div></div>
+            <div class="lrow"><div class="lk">行业里对应</div><div class="lv">多店铺管理工具 / 多账号运营网站</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv">我们的客户</div></div>
+          </div>
+        </div>
+
+        <div class="note blue">
+          <b>一句话记住</b>IaaS 卖「资源」，PaaS 卖「能力」，SaaS 卖「成品」。<br>
+          越往上，客户要自己做的事越少，但能改的东西也越少。
+        </div>
+
+        <div class="note green">
+          <b>为什么这一课要放在最前面</b>因为「我们站在哪一层」直接决定了「谁是我们的客户、客户拿我们做什么、跟他们该用哪套词」。<br>
+          这一层站错了，后面所有的沟通都会歪。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M3 第2课 我们是 PaaS 客户是 SaaS ===== -->
+    <section id="m3">
+      <div class="card">
+        <div class="kicker">第 2 课</div>
+        <h2 class="sec">我们是 PaaS，客户是 SaaS</h2>
+        <p class="lead">同一个平台，链条上不同位置的人看到的东西完全不一样。点开下图任一角色，看它在业务里的实际含义。</p>
+      <div style="margin:14px 0 6px;padding:14px 18px;border-radius:12px;background:var(--amber-soft);border-left:4px solid var(--amber);line-height:1.8">
+        <b>⚠ 一条铁律：做 PaaS / 白标，别碰客户的地盘</b><br>
+        我们自己<b>有</b> C 端 SaaS 产品，就叫 <b>QT Phone</b>——面向终端用户的云手机。这一点<b>内部必须清楚</b>，别对外说错。<br>
+        但<b>对 PaaS 客户、白标客户，不要透露我们有 C 端产品</b>——一旦说出去，客户会立刻认为你在跟他抢终端市场，接着就是防你、压价、找备胎。<br>
+        对客户只说能力层：<b>「我们只做下面这层能力，上面的产品是你们的，我们不碰终端。」</b>
+      </div>
+
+        <figure data-detail="detail1">
+          <svg viewBox="0 0 860 210" role="img" aria-label="云手机价值链四个角色">
+            <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+            <g class="svg-node" data-key="s1">
+              <rect x="14" y="62" width="180" height="86" rx="12" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.5"/>
+              <text class="svg-label" x="104" y="92" text-anchor="middle">上游资源</text>
+              <text class="svg-sub" x="104" y="113" text-anchor="middle">服务器 · 带宽</text>
+              <text class="svg-sub" x="104" y="131" text-anchor="middle">公网 IP</text>
+            </g>
+            <path class="svg-arrow" d="M196,105 L242,105" marker-end="url(#a1)"/>
+            <g class="svg-node on" data-key="s2">
+              <rect x="246" y="42" width="214" height="126" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2"/>
+              <text class="svg-label" x="353" y="74" text-anchor="middle" style="font-size:15px">我们 · PaaS</text>
+              <text class="svg-sub" x="353" y="97" text-anchor="middle">把资源变成「能力」</text>
+              <text class="svg-sub" x="353" y="118" text-anchor="middle">开窗口 · 装应用 · 批量管</text>
+              <text class="svg-sub" x="353" y="140" text-anchor="middle">提供接口给客户调用</text>
+            </g>
+            <path class="svg-arrow" d="M462,105 L508,105" marker-end="url(#a1)"/>
+            <text class="svg-sub" x="485" y="95" text-anchor="middle">能力</text>
+            <g class="svg-node" data-key="s3">
+              <rect x="512" y="62" width="182" height="86" rx="12" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.5"/>
+              <text class="svg-label" x="603" y="92" text-anchor="middle">我们的客户 · SaaS</text>
+              <text class="svg-sub" x="603" y="113" text-anchor="middle">做成自己的产品</text>
+              <text class="svg-sub" x="603" y="131" text-anchor="middle">卖给终端用户</text>
+            </g>
+            <path class="svg-arrow" d="M696,105 L742,105" marker-end="url(#a1)"/>
+            <g class="svg-node" data-key="s4">
+              <rect x="746" y="62" width="100" height="86" rx="12" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/>
+              <text class="svg-label" x="796" y="98" text-anchor="middle">终端用户</text>
+              <text class="svg-sub" x="796" y="119" text-anchor="middle">打开就用</text>
+            </g>
+          </svg>
+          <figcaption>云手机价值链：我们做中间的「能力层」，客户在上一层做成品</figcaption>
+        </figure>
+        <div class="detail" id="detail1"><b>点击图中任一角色</b>了解它在业务里的实际含义。</div>
+
+        <h3>同一件事，三层人看到的东西完全不同</h3>
+        <div class="layers">
+          <div class="layer" style="--cs:var(--accent-soft);--cl:var(--accent)">
+            <div class="who"><span class="dot"></span>我们（PaaS）</div>
+            <div class="lrow"><div class="lk">他买的是什么</div><div class="lv">可调用的能力：开窗口、装应用、批量管、接口对接</div></div>
+            <div class="lrow"><div class="lk">他嘴里的话</div><div class="lv">「能不能批量开窗口？能不能拿到设备信息？任务跑完没？」</div></div>
+            <div class="lrow"><div class="lk">他真正在意的</div><div class="lv">资源利用率、稳定性、能不能支撑客户的量</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--green-soft);--cl:var(--green)">
+            <div class="who"><span class="dot"></span>我们的客户（SaaS）</div>
+            <div class="lrow"><div class="lk">他买的是什么</div><div class="lv">我们的能力 + 他自己的软件</div></div>
+            <div class="lrow"><div class="lk">他嘴里的话</div><div class="lv">「窗口稳不稳？能不能对接？出问题谁负责？」</div></div>
+            <div class="lrow"><div class="lk">他真正在意的</div><div class="lv">窗口稳不稳、能不能对接、出问题谁负责</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--amber-soft);--cl:var(--amber)">
+            <div class="who"><span class="dot"></span>终端用户</div>
+            <div class="lrow"><div class="lk">他买的是什么</div><div class="lv">打开就能用的服务</div></div>
+            <div class="lrow"><div class="lk">他嘴里的话</div><div class="lv">「好用吗？贵不贵？会不会出问题？」</div></div>
+            <div class="lrow"><div class="lk">他真正在意的</div><div class="lv">体验和结果，完全不知道背后是云手机</div></div>
+          </div>
+        </div>
+
+        <div class="note blue">
+          <b>一句话定性</b>我们卖的不是「一台云手机」，而是<b>一套能让别人拿它去做生意的能力</b>。<br>
+          所以客户提的往往是「批量、稳定、可控、能对接」，而不是「界面好不好看」。
+        </div>
+
+        <div class="note amber">
+          <b>别忘了还有第三种客户</b>除了「自己做 SaaS 卖给终端」的客户，还有<b>把云手机能力嵌进自己工具</b>的客户，以及<b>渠道贴牌 / 做板卡租赁</b>的伙伴。<br>
+          前两类是 SaaS 视角，第三类是渠道视角——<b>两边用的词不一样</b>，第 3 课专门讲这件事。
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== M4 第3课 核心口径 ===== -->
+    <section id="m4">
+      <div class="card">
+        <div class="kicker">第 3 课 · 本课重点</div>
+        <h2 class="sec">★ 核心口径：用户层只按「窗口」算钱</h2>
+        <p class="lead">这一课只要记住一句话：面对 SaaS 客户和终端用户，我们的计价单位是<b>窗口</b>，不是板卡。</p>
+
+        <h3>先弄懂：什么叫一个「窗口」</h3>
+        <p>硬件底座上可以切出多个<b>窗口</b>，<b>一个窗口 = 一台独立云手机</b>：有自己的系统环境、自己的 IP，互相不干扰。</p>
+        <p>同一张硬件卡，<b>能切出多少个窗口是可调的</b>——这是这套业务里灵活性的来源。但有个取舍必须记住：</p>
+        <div class="note blue">
+          <b>开窗密度的取舍</b>切得越多，摊到<b>每个窗口的成本越低</b>，但每个窗口分到的内存和存储被摊薄，<b>体验会下降</b>。<br>
+          所以不要对客户承诺「越多越划算」——密度和体验是同一根跷跷板的两头。
+        </div>
+
+        <h3>用户层看到的世界，只有三件事</h3>
+        <div class="grid c3">
+          <div class="xcard static">
+            <div class="xt"><span class="dot"></span>开窗口</div>
+            <div class="xb" style="display:block"><p style="margin:0">开通一个窗口，就得到一台能用的云手机。</p></div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>按窗口计费</div>
+            <div class="xb" style="display:block"><p style="margin:0">用了几个窗口、用了多久，就是账单的全部依据。</p></div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>算单窗口成本</div>
+            <div class="xb" style="display:block"><p style="margin:0">客户要比较的是<b>单个窗口的成本</b>，不是整机、整卡的价格。</p></div>
+          </div>
+        </div>
+
+        <h3>★「板卡」只出现在三个地方</h3>
+        <p>板卡是我们的<b>硬件成本单位</b>，属于视角内部的词。它只在这三种场合出现：</p>
+        <div class="layers">
+          <div class="layer" style="--cs:var(--amber-soft);--cl:var(--amber)">
+            <div class="who"><span class="dot"></span>① 内部成本核算<span style="font-weight:700;font-size:12.5px;color:var(--amber)">机密，不外传</span></div>
+            <div class="lrow"><div class="lk">谁在用这个词</div><div class="lv">我们自己</div></div>
+            <div class="lrow"><div class="lk">为什么这里必须用它</div><div class="lv">硬件成本天然按卡算，才能倒推出单窗口成本</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--accent-soft);--cl:var(--accent)">
+            <div class="who"><span class="dot"></span>② PaaS 客户</div>
+            <div class="lrow"><div class="lk">谁在用这个词</div><div class="lv">自己搭 SaaS 层、要 API 接入的客户</div></div>
+            <div class="lrow"><div class="lk">为什么这里必须用它</div><div class="lv">他们买的是底层能力，关心开窗密度和接口，是技术采购视角</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--green-soft);--cl:var(--green)">
+            <div class="who"><span class="dot"></span>③ 渠道贴牌 / 板卡租赁</div>
+            <div class="lrow"><div class="lk">谁在用这个词</div><div class="lv">渠道伙伴</div></div>
+            <div class="lrow"><div class="lk">为什么这里必须用它</div><div class="lv">他要按「一张卡能开几窗」算自己的成本，这是他赚钱的算法</div></div>
+          </div>
+        </div>
+
+        <figure data-detail="detail2">
+          <svg viewBox="0 0 860 230" role="img" aria-label="三个视角下的计价单位">
+            <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+            <g class="svg-node" data-key="v1">
+              <rect x="10" y="50" width="256" height="130" rx="12" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.5"/>
+              <text class="svg-label" x="138" y="80" text-anchor="middle">① 内部视角</text>
+              <text class="svg-sub" x="138" y="104" text-anchor="middle">单位是「卡」与开窗密度</text>
+              <text class="svg-sub" x="138" y="126" text-anchor="middle">用来算成本</text>
+              <text class="svg-sub" x="138" y="152" text-anchor="middle" style="fill:var(--red)">对外一律不提</text>
+            </g>
+            <path class="svg-arrow" d="M268,115 L296,115" marker-end="url(#a2)"/>
+            <g class="svg-node" data-key="v2">
+              <rect x="300" y="50" width="256" height="130" rx="12" fill="var(--violet-soft)" stroke="var(--violet)" stroke-width="1.5"/>
+              <text class="svg-label" x="428" y="80" text-anchor="middle">② PaaS / 渠道视角</text>
+              <text class="svg-sub" x="428" y="104" text-anchor="middle">单位是「卡 + 开窗数」</text>
+              <text class="svg-sub" x="428" y="126" text-anchor="middle">谈接口、谈规格、谈贴牌</text>
+              <text class="svg-sub" x="428" y="152" text-anchor="middle" style="fill:var(--amber)">只对这一层说</text>
+            </g>
+            <path class="svg-arrow" d="M558,115 L586,115" marker-end="url(#a2)"/>
+            <g class="svg-node" data-key="v3">
+              <rect x="590" y="50" width="260" height="130" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2"/>
+              <text class="svg-label" x="720" y="80" text-anchor="middle" style="font-size:14px">③ 用户层视角 ★</text>
+              <text class="svg-sub" x="720" y="104" text-anchor="middle">单位是「窗口」</text>
+              <text class="svg-sub" x="720" y="126" text-anchor="middle">只算单窗口成本</text>
+              <text class="svg-sub" x="720" y="152" text-anchor="middle" style="fill:var(--green)">板卡在这个世界里不存在</text>
+            </g>
+          </svg>
+          <figcaption>同一套资源，三种视角三种单位——说错层，沟通立刻失效</figcaption>
+        </figure>
+        <div class="detail" id="detail2"><b>点击任一视角</b>看清它在实际沟通里对应谁。</div>
+
+        <div class="note red">
+          <b>对 SaaS 客户说「板卡」，就是错层</b>
+          SaaS 客户和终端用户的世界里<b>没有板卡这个概念</b>。他们只知道「我开了多少个窗口、每个窗口多少钱」。<br>
+          你一开口说板卡，客户会立刻察觉你在用另一套计价单位思考——后面所有关于价格、成本、容量的对话都会歪掉。<br>
+          <b>一句话纪律：对内部和渠道说板卡，对用户层只说窗口和单窗口成本。</b>
+        </div>
+
+        <div class="note amber">
+          <b>两个常见的搞混</b>
+          · 客户说「我要 50 <b>台</b>」——在用户层，一台就是一个窗口，说窗口不会错。<br>
+          · 技术同事嘴里可能听到「<b>实例</b>」「<b>镜像</b>」等词，那是对接层面的叫法，指的是同一个东西的不同侧面；<b>但面对客户，计价单位只有一个：窗口。</b>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- ===== M5 第4课 测验 ===== -->
+    <section id="m5">
+      <div class="card">
+        <div class="kicker">第 4 课</div>
+        <h2 class="sec">随堂测验</h2>
+        <p class="lead">4 道题，全部能在前面几节找到答案。选完点提交看解析。</p>
+        <div class="quiz" id="quiz"></div>
+        <div class="score">
+          <div class="big" id="scoreNum">—</div>
+          <div class="txt" id="scoreTxt">尚未提交</div>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn" id="submitQuiz">提交答案</button>
+            <button class="btn ghost" id="resetQuiz">重做</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M6 术语速查 ===== -->
+    <section id="m6">
+      <div class="card">
+        <div class="kicker">附录</div>
+        <h2 class="sec">术语速查表</h2>
+        <p class="lead">开会时听到不懂的词，回来查这里。</p>
+        <div class="gl gloss">
+          <div class="row"><div class="t">窗口</div><div class="d"><b>用户层的计价单位。</b>一个窗口 = 一台独立可用的云手机（独立系统环境 + 独立 IP）。客户说的「一台」就是它。</div></div>
+          <div class="row"><div class="t">单窗口成本</div><div class="d">把费用折算到<b>一个窗口</b>上看是多少。整机、整卡都不属于这个视角。<b>用户层只认这一个单位。</b></div></div>
+          <div class="row"><div class="t">开窗密度</div><div class="d">同一份底层资源切成多少窗口。密度越高单窗成本越低，但每窗内存与存储越薄——核心取舍。</div></div>
+          <div class="row"><div class="t">板卡</div><div class="d">硬件成本单位，<b>只出现在三处：</b>内部成本核算、PaaS 客户、渠道贴牌与板卡租赁。</div></div>
+          <div class="row"><div class="t">实例</div><div class="d">技术对接层面的叫法，指一台云手机。跟客户谈计价时，统一说「窗口」。</div></div>
+          <div class="row"><div class="t">镜像</div><div class="d">预装好系统和应用的模板。用同一个镜像开出来的窗口初始状态一致，是批量部署的基础。</div></div>
+          <div class="row"><div class="t">IaaS</div><div class="d">基础设施即服务，卖「资源」（服务器、网络、存储）。相当于租毛坯房。</div></div>
+          <div class="row"><div class="t">PaaS</div><div class="d">平台即服务，卖「能力」，客户通过接口调用。<b>我们在这个位置</b>，相当于租精装公寓。</div></div>
+          <div class="row"><div class="t">SaaS</div><div class="d">软件即服务，卖开箱即用的成品，最终用户直接用。<b>我们的客户在这一层</b>，相当于住酒店。</div></div>
+          <div class="row"><div class="t">IP</div><div class="d">公网地址。客户在意的不只是「有多少个」，而是<b>干不干净、能不能跟着窗口一起配好</b>。</div></div>
+          <div class="row"><div class="t">环境隔离</div><div class="d">每个窗口是独立的环境，互相不影响。这是「一窗口一账号」类业务能成立的基础。</div></div>
+          <div class="row"><div class="t">账号关联</div><div class="d">目标平台把多个账号判定为<b>同一批人在操作</b>。设备环境与 IP 是降低关联风险的其中两层，但不是全部。</div></div>
+          <div class="row"><div class="t">渠道贴牌</div><div class="d">渠道伙伴用<b>自己的品牌</b>对外销售。这一层的核算视角和用户层不同，会用到板卡与开窗密度。</div></div>
+          <div class="row"><div class="t">三项认证</div><div class="d">Google Play / SafetyNet / Widevine L1 等应用与安全认证，海外业务的实际门槛，部分高要求场景会指定。</div></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="srcs">
+    <h4 style="margin:0 0 12px">资料来源</h4>
+    <ol>
+      <li>三层概念体系（IaaS / PaaS / SaaS）与云手机行业通识，按公开行业资料整理为通用表述。</li>
+      <li>「窗口 / 单窗口成本 / 板卡」的视角分层口径，按本公司内部业务口径整理。</li>
+      <li>本材料为内部培训用途，不涉及任何厂商的技术机密或商业条款。</li>
+    </ol>
+  </div>
+  <p>云手机 SaaS 入门 · 内部材料</p>
+  <p>其中的概念性、口径性说明<b>不代表本公司对外报价或服务承诺</b>；对外沟通请以公司正式发布的产品文档与合同条款为准。涉及成本结构、定价体系与渠道分成的内容属于内部机密，本材料不涉及。</p>
+</footer>
+
+<script>
+"use strict";
+
+/* ---------- 主题 ---------- */
+(function(){
+  /* 深浅色：没手动选过就跟随系统（含系统切换实时同步），手动点过则以手动为准 */
+  var btn = document.getElementById('themeBtn');
+  var KEY = 'qtrain-theme';
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  try { localStorage.removeItem(KEY); } catch(e){}
+  try { localStorage.removeItem('saasdeck-theme'); } catch(e){}
+  function saved(){ try { return sessionStorage.getItem(KEY); } catch(e){ return null; } }
+  function apply(dark){
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (btn) btn.textContent = dark ? '\u2600\ufe0f \u6d45\u8272' : '\ud83c\udf19 \u6df1\u8272';
+  }
+  var s = saved();
+  if (s === 'dark' || s === 'light') { apply(s === 'dark'); }
+  else { apply(!!(mq && mq.matches)); }
+  if (mq) {
+    var onSys = function(e){ var cur = saved(); if (cur !== 'dark' && cur !== 'light') apply(e.matches); };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+    else if (mq.addListener) mq.addListener(onSys);
+  }
+  if (btn) btn.addEventListener('click', function(){
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    try { sessionStorage.setItem(KEY, dark ? 'light' : 'dark'); } catch(e){}
+    apply(!dark);
+  });
+})();
+
+/* ---------- 导航 ---------- */
+var MODULES = [
+  ['m0','课程首页'], ['m1','学习目标'], ['m2','1 · 三层回顾'],
+  ['m3','2 · 我们与客户'], ['m4','3 · 核心口径 · 窗口'],
+  ['m5','4 · 随堂测验'], ['m6','术语速查']
+];
+(function(){
+  var nav = document.getElementById('nav'), links = {};
+  MODULES.forEach(function(m){
+    var a = document.createElement('a');
+    a.href = '#' + m[0]; a.textContent = m[1]; a.dataset.t = m[0];
+    nav.appendChild(a); links[m[0]] = a;
+  });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting) {
+        Object.keys(links).forEach(function(k){ links[k].classList.remove('active'); });
+        if (links[en.target.id]) links[en.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin:'-72px 0px -70% 0px', threshold:0 });
+  MODULES.forEach(function(m){ var el = document.getElementById(m[0]); if (el) obs.observe(el); });
+
+  var bar = document.getElementById('progress');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%';
+  }, { passive:true });
+})();
+
+/* ---------- 展开卡片 ---------- */
+document.querySelectorAll('.xcard:not(.static)').forEach(function(c){
+  c.addEventListener('click', function(){ c.classList.toggle('open'); });
+});
+
+/* ---------- 手风琴 ---------- */
+document.querySelectorAll('.acc>button').forEach(function(b){
+  b.addEventListener('click', function(){ b.parentElement.classList.toggle('open'); });
+});
+
+/* ---------- SVG 交互 ---------- */
+var INFO = {
+  s1: ['上游资源：机房与硬件','包括服务器硬件、机位、网络带宽、公网 IP。','这一层的成本决定了我们的底价，所以资源采购和规划是实打实的经营环节。'],
+  s2: ['我们：云手机 PaaS 平台','把上游的裸资源变成客户能调用的能力：开窗口、装应用、批量管理、把画面传到用户屏幕上。','我们的价值在于「省事」——客户不需要懂机房、虚拟化、音视频传输，调个接口就能用。技术门槛越高，我们的位置越稳。'],
+  s3: ['我们的客户：SaaS 提供方','他们买我们的能力，包进自己的产品，卖给最终用户。','客户卖得好，才会开更多窗口。所以理解客户的生意模式，比背熟产品参数更有用。'],
+  s4: ['终端用户','打开客户的产品就能用，完全不知道背后是云手机。','这条链上任何一环出问题，最后都会以「客户投诉」的形式传回我们这里——这就是为什么稳定性和响应速度是生命线。'],
+  v1: ['① 内部视角：算成本用','内部核算会用「卡」和开窗密度来倒推成本。','这套口径属于内部机密，对外一律不提，包括不要在客户面前顺口说出来。'],
+  v2: ['② PaaS / 渠道视角：谈规格用','自己搭建上层、走接口接入的客户，以及贴牌 / 租赁的渠道伙伴，谈的是底层规格与开窗密度。','他们关心的是「怎么把这份资源变成自己的生意」，所以要用这套词。'],
+  v3: ['③ 用户层视角：谈钱用 ★','面对 SaaS 客户与终端用户，只讲两件事：窗口、单窗口成本。','这个视角里没有板卡。说错层，后面关于价格和成本的对话全部失效。']
+};
+function bindSVG(root, panelId){
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  var nodes = root.querySelectorAll('.svg-node');
+  nodes.forEach(function(g){
+    g.addEventListener('click', function(){
+      var info = INFO[g.dataset.key]; if (!info) return;
+      nodes.forEach(function(n){ n.classList.remove('on'); });
+      g.classList.add('on');
+      panel.innerHTML = '<b>' + info[0] + '</b>' + info[1] +
+        (info[2] ? '<p style="margin:10px 0 0;color:var(--muted)">' + info[2] + '</p>' : '');
+    });
+  });
+}
+document.querySelectorAll('figure[data-detail]').forEach(function(f){
+  bindSVG(f.querySelector('svg'), f.dataset.detail);
+});
+
+/* ---------- 测验 ---------- */
+var QUIZ = [
+  { q:'我们说的「PaaS 和 SaaS 的关系」，下面哪种说法对？',
+    o:['我们做 PaaS，客户拿我们的能力做成面向终端用户的 SaaS 产品','PaaS 比 SaaS 更高级，所以更贵','两者是同一个东西，只是叫法不同','PaaS 只能服务大企业，SaaS 只能服务个人'],
+    a:0,
+    e:'链条上我们在中间层，提供能力和接口（PaaS）；客户把能力包装成面向最终用户的产品（SaaS）。分清这一点，才知道客户提的需求为什么总是「批量、稳定、能对接」。' },
+  { q:'面对云手机的 SaaS 客户，正确的计价单位是？',
+    o:['板卡','窗口','机房机位','带宽峰值'],
+    a:1,
+    e:'用户层只按「窗口」计费，只算单窗口成本。一个窗口 = 一台独立可用的云手机。板卡是内部与渠道视角的词，对 SaaS 客户说不出口。' },
+  { q:'「板卡」这个概念只出现在哪三种场合？',
+    o:['所有客户都适用，讲清楚就行','① 内部成本核算（机密）② PaaS 客户（自建上层、要 API 接入）③ 渠道贴牌 / 板卡租赁','只有国内客户才用这个词','销售报价单上必须写明'],
+    a:1,
+    e:'板卡只属于三个场合：内部成本核算、PaaS 客户的技术采购视角、渠道贴牌 / 板卡租赁。面对 SaaS 客户与终端用户，只讲窗口和单窗口成本——说板卡就是错层。' },
+  { q:'同一份底层资源，窗口切得越多，意味着什么？',
+    o:['每个窗口的成本越低，但分到的内存和存储越薄，体验会下降','每个窗口的性能越好','和成本没有关系','窗口越多越好，应该尽量开满'],
+    a:0,
+    e:'这就是开窗密度的取舍：密度越高单窗口成本越低，但每窗口内存被摊薄、体验下降。所以不要对客户承诺「越多越划算」。' }
+];
+(function(){
+  var box = document.getElementById('quiz');
+  if (!box) return;
+  QUIZ.forEach(function(item, qi){
+    var d = document.createElement('div');
+    d.className = 'q';
+    var html = '<div class="qt"><span class="qn">' + (qi+1) + '.</span><span>' + item.q + '</span></div>';
+    item.o.forEach(function(opt, oi){
+      html += '<label class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
+              '<input type="radio" name="q' + qi + '" value="' + oi + '"><span>' +
+              String.fromCharCode(65+oi) + '. ' + opt + '</span></label>';
+    });
+    html += '<div class="exp" id="exp' + qi + '"></div>';
+    d.innerHTML = html;
+    box.appendChild(d);
+  });
+  document.getElementById('submitQuiz').addEventListener('click', function(){
+    var correct = 0;
+    QUIZ.forEach(function(item, qi){
+      var picked = document.querySelector('input[name="q' + qi + '"]:checked');
+      box.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function(l){ l.classList.remove('right','wrong'); });
+      var right = box.querySelector('.opt[data-q="' + qi + '"][data-o="' + item.a + '"]');
+      if (right) right.classList.add('right');
+      if (picked) {
+        var v = +picked.value;
+        if (v === item.a) correct++;
+        else {
+          var w = box.querySelector('.opt[data-q="' + qi + '"][data-o="' + v + '"]');
+          if (w) w.classList.add('wrong');
+        }
+      }
+      var ex = document.getElementById('exp' + qi);
+      ex.innerHTML = '<b>正确答案：' + String.fromCharCode(65 + item.a) + '</b>　' + item.e;
+      ex.classList.add('show');
+    });
+    var total = QUIZ.length;
+    document.getElementById('scoreNum').textContent = correct + ' / ' + total;
+    var t;
+    if (correct === total) t = '全对。三层关系与计价口径都清楚了，可以开始看实际的产品文档。';
+    else if (correct >= total * 0.75) t = '不错。回看答错题目对应的课程，把口径再确认一遍。';
+    else if (correct >= total * 0.5) t = '及格。重点回看第 3 课（核心口径：窗口）。';
+    else t = '建议从第 1 课重新看一遍，尤其是第 3 课的「板卡只出现在三处」——这一条每天都在用。';
+    document.getElementById('scoreTxt').textContent = t;
+  });
+  document.getElementById('resetQuiz').addEventListener('click', function(){
+    box.querySelectorAll('input[type=radio]').forEach(function(r){ r.checked = false; });
+    box.querySelectorAll('.opt').forEach(function(l){ l.classList.remove('right','wrong'); });
+    box.querySelectorAll('.exp').forEach(function(e){ e.classList.remove('show'); e.innerHTML = ''; });
+    document.getElementById('scoreNum').textContent = '—';
+    document.getElementById('scoreTxt').textContent = '尚未提交';
+  });
+})();
+</script>
+</body>
+</html>

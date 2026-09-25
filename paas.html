@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云手机 PaaS 入门 · 新员工培训</title>
+<style>
+:root{
+  --hero-bg:linear-gradient(135deg,#ffffff 0%,#ffffff 100%);--hero-ink:#1d1d1f;--hero-sub:#6e6e73;--hero-chip:#ffffff;--hero-chip-line:#d2d2d7;--hero-chip-sub:#424245;--hero-meta:#6e6e73;--hero-glow:transparent; --bg:#fbfbfd; --panel:#ffffff; --panel-2:#f5f5f7; --ink:#1d1d1f; --body:#424245;
+  --muted:#6e6e73; --line:#d2d2d7; --accent:#0071e3; --accent-soft:#eef4ff;
+  --green:#0b7a4a; --green-soft:#e9f7f0; --amber:#a9600a; --amber-soft:#fdf4e5;
+  --red:#c8102e; --red-soft:#fdeef0; --violet:#5e5ce6; --violet-soft:#f1ecfd;
+  --shadow:none;
+  --radius:20px; --maxw:820px;
+}
+[data-theme="dark"]{
+  --hero-bg:linear-gradient(135deg,#1d1d1f 0%,#1d1d1f 100%);--hero-ink:#f5f5f7;--hero-sub:#a1a1a6;--hero-chip:#2d2d2f;--hero-chip-line:#38383a;--hero-chip-sub:#c7c7cc;--hero-meta:#a1a1a6;--hero-glow:transparent; --bg:#000000; --panel:#1d1d1f; --panel-2:#2d2d2f; --ink:#f5f5f7; --body:#c7c7cc;
+  --muted:#a1a1a6; --line:#38383a; --accent:#2997ff; --accent-soft:#0a2540;
+  --green:#30d158; --green-soft:#0e2a1c; --amber:#ff9f0a; --amber-soft:#2b2205;
+  --red:#ff453a; --red-soft:#2b1012; --violet:#b39bf5; --violet-soft:#241a33;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--ink);line-height:1.35;margin:0}
+a{color:var(--accent)}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;z-index:50;
+  background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 20px}
+.brand{font-weight:700;color:var(--ink);font-size:15px;white-space:nowrap}
+.brand .sub{color:var(--accent)}
+.spacer{flex:1}
+.tbtn{text-decoration:none;border:1px solid var(--line);background:var(--panel);color:var(--body);border-radius:10px;
+  padding:7px 13px;font-size:13px;cursor:pointer;font-family:inherit;transition:.16s;white-space:nowrap}
+.tbtn:hover{border-color:var(--accent);color:var(--accent)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;transition:width .1s}
+
+.shell{display:flex;gap:38px;max-width:1260px;margin:0 auto;padding:84px 24px 120px}
+.sidenav{position:sticky;top:84px;align-self:flex-start;width:218px;flex:0 0 218px;
+  max-height:calc(100vh - 115px);overflow-y:auto;padding-right:6px}
+.navtitle{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin:0 0 10px 10px}
+.sidenav a{display:block;padding:7px 10px;border-radius:9px;color:var(--muted);text-decoration:none;
+  font-size:13.5px;border-left:2px solid transparent;transition:.15s}
+.sidenav a:hover{background:var(--panel-2);color:var(--ink)}
+.sidenav a.active{color:var(--accent);background:var(--accent-soft);border-left-color:var(--accent);font-weight:600}
+main{flex:1;min-width:0;max-width:var(--maxw)}
+
+section{margin-bottom:28px;scroll-margin-top:80px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:32px 34px;box-shadow:var(--shadow)}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+h2.sec{font-size:25px;margin-bottom:8px;letter-spacing:-.2px}
+.lead{color:var(--muted);font-size:15px;margin:0 0 24px}
+h3{font-size:17.5px;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--accent)}
+h4{font-size:15.5px;margin:20px 0 8px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:24px}
+li{margin-bottom:8px}
+code{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+  font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+strong{color:var(--ink)}
+
+.hero{background:var(--hero-bg);
+  border:none;color:var(--hero-chip-sub);padding:56px 42px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:330px;height:330px;border-radius:50%;
+  background:radial-gradient(circle,var(--hero-glow),transparent 68%)}
+.hero h1{color:var(--hero-ink);font-size:36px;letter-spacing:-.5px;margin-bottom:12px}
+.hero .sub{color:var(--hero-sub);font-size:16px;margin-bottom:28px}
+.hero .goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;position:relative;z-index:1}
+.hero .goal{background:var(--hero-chip);border:1px solid var(--hero-chip-line);border-radius:12px;padding:15px 17px}
+.hero .goal b{display:block;color:var(--hero-ink);font-size:14px;margin-bottom:5px}
+.hero .goal span{font-size:13px;color:var(--hero-chip-sub);line-height:1.65}
+.hero .meta{margin-top:28px;font-size:12.5px;color:var(--hero-meta);position:relative;z-index:1}
+
+.note{border-radius:12px;padding:16px 20px;margin:18px 0;font-size:15px}
+.note > b:first-child{display:block;margin-bottom:5px}
+.note.blue{background:var(--accent-soft)} .note.blue b{color:var(--accent)}
+.note.green{background:var(--green-soft)} .note.green b{color:var(--green)}
+.note.amber{background:var(--amber-soft)} .note.amber b{color:var(--amber)}
+.note.red{background:var(--red-soft)} .note.red b{color:var(--red)}
+
+.tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th{background:var(--panel-2);color:var(--ink);text-align:left;padding:12px 15px;font-weight:600;
+  font-size:13.5px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--panel-2)}
+
+.grid{display:grid;gap:16px;margin:18px 0}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.xcard{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:20px 22px;
+  cursor:pointer;transition:.18s;position:relative}
+.xcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.xcard .xt{font-weight:700;color:var(--ink);font-size:15.5px;display:flex;align-items:center;gap:9px}
+.xcard .xt .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:0 0 9px}
+.xcard .xh{font-size:13.5px;color:var(--muted);margin-top:7px}
+.xcard .xb{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px}
+.xcard.open .xb{display:block}
+.xcard.open{border-color:var(--accent);background:var(--panel)}
+.xcard .caret{position:absolute;right:18px;top:18px;color:var(--muted);font-size:13px;transition:.2s}
+.xcard.open .caret{transform:rotate(90deg);color:var(--accent)}
+.xcard.static{cursor:default}
+.xcard.static:hover{transform:none;border-color:var(--line)}
+
+figure{margin:22px 0;background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:20px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+.svg-node{cursor:pointer}
+.svg-node rect{transition:.18s}
+.svg-node:hover rect{stroke:var(--accent);stroke-width:2.5}
+.svg-node.on rect{stroke:var(--accent);stroke-width:2.8}
+.svg-node.dim{opacity:.4}
+.svg-label{font-size:13px;font-weight:600;fill:var(--ink);font-family:inherit}
+.svg-sub{font-size:11px;fill:var(--muted);font-family:inherit}
+.svg-arrow{stroke:var(--muted);stroke-width:1.6;fill:none}
+.detail{margin-top:16px;background:var(--panel);border:1px solid var(--accent);border-radius:12px;
+  padding:16px 20px;font-size:14.5px;min-height:66px}
+.detail > b:first-child{color:var(--accent);display:block;margin-bottom:4px}
+
+.steps{display:flex;flex-direction:column;gap:0;margin:18px 0}
+.step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:.15s}
+.step:last-child{border-bottom:none}
+.step:hover{background:var(--panel-2)}
+.step.on{background:var(--accent-soft);border-radius:11px;padding-left:14px;padding-right:14px}
+.step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--panel-2);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);font-size:14px}
+.step.on .n{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step .c{flex:1}
+.step .c > b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
+.step .c span{font-size:14px;color:var(--muted)}
+
+.ctl{margin-bottom:18px}
+.ctl label{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:7px;gap:12px}
+.ctl label b{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--accent);height:5px}
+.calc{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:24px 26px;margin:18px 0}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px;margin-top:20px;
+  padding-top:20px;border-top:1px solid var(--line)}
+.out .o{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.out .o .k{font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.out .o .v{font-size:22px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.4px}
+.out .o.hi .v{color:var(--green)}
+
+.chart{display:flex;align-items:flex-end;gap:3px;height:150px;margin:18px 0 8px;padding:0 2px}
+.chart .bar{flex:1;background:var(--accent);border-radius:3px 3px 0 0;transition:.25s;min-height:2px}
+.chart .bar.cut{background:var(--red);opacity:.75}
+.chart .bar.bill{background:var(--green)}
+.chartlegend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.chartlegend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.verdict{margin-top:16px;padding:15px 18px;border-radius:11px;font-size:14.5px;font-weight:600;line-height:1.7}
+.verdict.ok{background:var(--green-soft);color:var(--green)}
+.verdict.bad{background:var(--red-soft);color:var(--red)}
+
+.acc{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--panel)}
+.acc>button{width:100%;text-align:left;padding:15px 20px;background:transparent;border:none;font-family:inherit;
+  font-size:15.5px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:flex-start;line-height:1.6}
+.acc>button:hover{background:var(--panel-2)}
+.acc>button .qn{color:var(--accent);font-weight:700;flex:0 0 auto}
+.acc>button .plus{margin-left:auto;color:var(--muted);flex:0 0 auto;transition:.2s}
+.acc.open>button .plus{transform:rotate(45deg);color:var(--accent)}
+.acc .ans{display:none;padding:14px 20px 18px 52px;font-size:14.5px;border-top:1px solid var(--line)}
+.acc.open .ans{display:block}
+.acc .ans .say{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin-top:11px}
+
+.quiz{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;padding:24px 26px}
+.q{margin-bottom:22px;padding-bottom:20px;border-bottom:1px dashed var(--line)}
+.q:last-of-type{border-bottom:none;margin-bottom:14px;padding-bottom:4px}
+.q .qt{font-weight:600;color:var(--ink);font-size:15.5px;margin-bottom:12px;display:flex;gap:10px}
+.q .qt .qn{color:var(--accent);flex:0 0 auto}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 15px;border:1px solid var(--line);border-radius:10px;
+  background:var(--panel);margin-bottom:8px;cursor:pointer;font-size:14.5px;transition:.14s}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px;accent-color:var(--accent);flex:0 0 auto;width:16px;height:16px}
+.opt.right{background:var(--green-soft);border-color:var(--green)}
+.opt.wrong{background:var(--red-soft);border-color:var(--red)}
+.exp{display:none;margin-top:12px;font-size:14px;background:var(--accent-soft);border-radius:10px;padding:13px 16px}
+.exp.show{display:block}
+.exp b{color:var(--accent)}
+.score{margin-top:20px;padding:20px 22px;border-radius:12px;background:var(--panel);border:1px solid var(--line);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.score .big{font-size:34px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.score .txt{font-size:14.5px}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:14.5px;
+  font-family:inherit;cursor:pointer;font-weight:600;transition:.15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+
+.gl{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.gl .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}
+.gl .row:last-child{border-bottom:none}
+.gl .row .t{padding:13px 16px;background:var(--panel-2);font-weight:600;color:var(--ink);font-size:14px}
+.gl .row .d{padding:13px 16px;font-size:14px}
+
+footer{max-width:var(--maxw);margin:0 auto;padding:0 24px 60px;color:var(--muted);font-size:13px}
+.srcs{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px 26px;margin-bottom:26px}
+.srcs ol{padding-left:22px;margin:0}
+.srcs li{margin-bottom:6px;font-size:13px;word-break:break-all}
+
+@media (max-width:1000px){
+  .shell{flex-direction:column;gap:0;padding:78px 16px 90px;max-width:100%;overflow-x:hidden}
+  .sidenav{position:static;width:auto;max-width:100%;min-width:0;flex:none;max-height:none;display:flex;gap:6px;
+    overflow-x:auto;padding:0 0 14px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+  .navtitle{display:none}
+  .sidenav a{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;border-radius:8px;flex:0 0 auto}
+  .sidenav a.active{border-left:none;border-bottom-color:var(--accent)}
+  main{max-width:100%;min-width:0;width:100%}
+  .card{padding:24px 20px}
+  .hero{padding:36px 22px}
+  .hero h1{font-size:27px}
+  .gl .row{grid-template-columns:1fr}
+  .gl .row .t{border-bottom:1px solid var(--line)}
+  .tablewrap{max-width:100%}
+}
+@media (max-width:600px){
+  .shell{padding:72px 12px 70px}
+  .topbar{padding:0 12px;gap:8px}
+  .brand{font-size:13.5px;overflow:hidden;text-overflow:ellipsis}
+  .brand .sub{display:none}
+  .tbtn{padding:6px 10px;font-size:12.5px}
+  #printBtn{display:none}
+  .card{padding:20px 15px}
+  .hero h1{font-size:23px}
+  h2.sec{font-size:21px}
+  .out{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))}
+  .chart{height:110px}
+  figure{padding:14px}
+}
+@media print{
+  .topbar,.sidenav{display:none}
+  .shell{padding:0}
+  .card{box-shadow:none;break-inside:avoid}
+  .acc .ans,.xcard .xb,.exp{display:block!important}
+}
+
+    /* ===== 布局 / 排版 / 表格修正（2026-09-24）===== */
+    .hero .goals:has(> :nth-child(4):last-child),
+    .grid.c2:has(> :nth-child(4):last-child),
+    .grid.c3:has(> :nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.c2:has(> :nth-child(7):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid.c3:has(> :nth-child(6):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+    body{line-break:strict;text-wrap:pretty}
+    h1,h2,h3{text-wrap:balance}
+    th,td{overflow-wrap:break-word}
+    .srcs li{word-break:normal}   /* 原规则是 break-all，URL/英文会被拦腰断 */
+    table.phases td:nth-child(1),table.phases td:nth-child(2),
+    table.phases th:nth-child(1),table.phases th:nth-child(2){white-space:nowrap}
+    @media(max-width:860px){.hero .goals,.grid.c2,.grid.c3{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:560px){.hero .goals,.grid.c2,.grid.c3{grid-template-columns:1fr!important}}
+  
+    /* ===== 排版统一：字号收敛为 7 档 + 阅读节奏（2026-09-24）=====
+       原 CSS 共 17 档字号（11–36px，含 12.5/13.5/14.5/15.5 半像素步进），层级压在一起。
+       这里只收敛与统一，不新增视觉元素；不改原规则，故各份 CSS 仍同源。 */
+    :root{--fs-d:32px;--fs-h2:23px;--fs-h3:18px;--fs-l:15.5px;--fs-m:15px;--fs-s:13.5px;--fs-xs:12.5px}
+    body{font-size:var(--fs-m);line-height:1.8}
+    p,li,.lead,.detail,.note,.verdict,.acc .ans,.opt,.gl .row .d,.xcard .xb{font-size:var(--fs-m);line-height:1.8}
+    li{word-break:normal;overflow-wrap:break-word}
+    .hero h1{font-size:var(--fs-d);line-height:1.3}
+    h2.sec{font-size:var(--fs-h2)}
+    h3{font-size:var(--fs-h3)}
+    h4,.xcard .xt,.acc>button,.q .qt,.step .c>b,.hero .sub,.btn{font-size:var(--fs-l)}
+    table,td,.gl .row .t,.ctl label,.score .txt,.step .n,.exp,code{font-size:var(--fs-m)}
+    th,.sidenav a,.brand{font-size:var(--fs-s)}
+    .tbtn,figcaption,.svg-label,footer,.srcs li,.hero .goal span,.xcard .xh{font-size:var(--fs-s)}
+    .hero .meta,.out .o .k,.chartlegend,.navtitle,.kicker,.svg-sub{font-size:var(--fs-xs)}
+    .out .o .v,.score .big{font-size:30px}
+    p,li,.lead,.detail,.note,.verdict{max-width:44em}
+    th{white-space:normal}   /* 原 CSS 给 th 挂了 nowrap，放大字号后会把列撑爆 */
+    th,td{overflow-wrap:break-word}   /* 中文按标点自然折行（标点处断才干净）；短标签由 nowrap 保住 */
+    /* 短短语类元素整词不断（卡片要点/标签/表头/导航）；长句仍按标点折行 */
+    .hero .goal span,.xcard .xt,.xcard .xh,.kicker,.navtitle,th,.tbtn,figcaption,.svg-label,.out .o .k,.chartlegend,.hero .meta,.sidenav a,.brand,.step .n,.step .c span,.score .txt,.ctl label{word-break:keep-all}
+    /* 强调串/卡片说明也别把词撕开；只在标点、空格、斜杠处折行，实在放不下再兜底断字 */
+    b,.layer .lv,.layer .lk,.note,.lead,p,td{word-break:keep-all;overflow-wrap:break-word}
+    /* 卡片标题太长时别顶出卡片（keep-all 让它不折行 → 溢出实测 +24/+30px）：兜底允许断行 */
+    .xcard .xh{overflow-wrap:anywhere}
+    /* ===== 「分层对照」卡片：替掉原四列宽表（2026-09-24，用户要求换一种排版表达：弹窗/内嵌均可）=====
+       宽表的毛病：列窄 → 短语被折成两三层、行高不齐、必须横向扫行。改成「一张卡一个角色/层次」，
+       卡内「标签 : 说明」逐行读；配色沿用上方价值链图里各角色的颜色。全部内容内嵌可见，不做折叠。 */
+    .layers{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+    .layer{background:var(--cs,var(--panel-2));border:1px solid var(--cl,var(--line));border-radius:13px;padding:15px 18px 13px}
+    .layer .who{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink);font-size:16px;margin-bottom:4px}
+    .layer .who .dot{width:9px;height:9px;border-radius:50%;background:var(--cl,var(--muted));flex:0 0 auto}
+    .lrow{display:grid;grid-template-columns:132px 1fr;gap:14px;padding:8px 0;align-items:baseline}
+    .lrow + .lrow{border-top:1px dashed rgba(16,26,46,.10)}
+    .lrow .lk{color:var(--muted);font-size:13px;white-space:nowrap}
+    .lrow .lv{color:var(--body);font-size:15px;line-height:1.65}
+    @media (max-width:620px){.lrow{grid-template-columns:1fr;gap:2px;padding:7px 0}.lrow .lk{white-space:normal}}
+
+    /* 术语速查：与《云手机 ARM 基础》同步——术语蓝色加粗、释义同行、每行一条 */
+    #m9 .gl.gloss .row{display:block;padding:6px 15px;white-space:nowrap}
+    #m9 .gl.gloss .t{display:inline;background:none;border:none;padding:0;width:auto;font-size:12.5px;font-weight:700;color:var(--accent)}
+    #m9 .gl.gloss .t{margin-right:6px}
+    #m9 .gl.gloss .d{display:inline;padding:0;font-size:12.5px;line-height:1.7;white-space:nowrap}
+    @media(max-width:900px){#m9 .gl.gloss .row{white-space:normal}#m9 .gl.gloss .d{white-space:normal}}
+
+/* 并排卡片：正文块贴底对齐——短文案的空白收到正文上方，虚线分隔线与邻卡齐平 */
+.xcard{display:flex;flex-direction:column}
+.xcard .xb{margin-top:auto}
+/* ===== Apple 视觉层（结构/内容不动，只换视觉语言）===== */
+h1,h2,h3,h4,.hero h1{letter-spacing:-.022em}
+h2.sec,h3,h4{font-weight:600}
+h3{border-left:0!important;padding-left:0!important}
+.topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+.card{box-shadow:none}
+.xcard{background:var(--panel);border-radius:16px}
+.xcard,.acc>button,.opt,.check,.verdict,.layers,.layer{border-radius:14px}
+.tbtn{border-radius:980px;padding:7px 14px;font-weight:500}
+.btn{border-radius:980px;font-weight:500}
+code{border-radius:6px}
+input[type=number],input[type=text]{border-radius:12px}
+.hero{border:1px solid var(--line)}
+.hero .goal{border-radius:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+
+/* --- 收口：统一发丝线语言 / hero 提亮 / 低对比控件 --- */
+.card .help,.help{border:1px solid var(--line);border-style:solid;background:var(--panel-2)}
+.chip{color:var(--body)}
+.tgl,.tbtn{background:var(--panel)}
+.notice,.tip,.banner{border:1px solid var(--line);border-left:1px solid var(--line)!important;background:var(--panel-2);color:var(--body)}
+
+</style>
+<script>/*主题预置：在首次绘制前定好深浅，避免深色下闪白*/(function(){function d(){return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}try{localStorage.removeItem('qtrain-theme')}catch(e){}var s=null;try{s=sessionStorage.getItem('qtrain-theme')}catch(e){}if(s!=='dark'&&s!=='light')s=d()?'dark':'light';document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><img src="data:image/png;base64,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" alt="QT Phone" style="width:22px;height:22px;border-radius:6px;margin-right:9px;vertical-align:-5px">云手机 PaaS 入门<span class="sub"> · 新员工培训</span></div>
+  <a class="tbtn" href="index.html">← 课程目录</a>
+  <div class="spacer"></div>
+  <button class="tbtn" id="themeBtn">🌙 深色</button>
+  <button class="tbtn" id="printBtn" onclick="window.print()">打印 / 存 PDF</button>
+  <div class="progress" id="progress"></div>
+</div>
+
+<div class="shell">
+  <nav class="sidenav" id="nav"><div class="navtitle">课程目录</div></nav>
+  <main id="main">
+
+    <!-- ===== 封面 ===== -->
+    <section id="m0">
+      <div class="card hero">
+        <h1>云手机 PaaS 入门</h1>
+        <div class="sub">新员工培训 · 不需要任何技术背景 · 建议用时 45–60 分钟</div>
+        <div class="goals">
+          <div class="goal"><b>听懂行业黑话</b><span>IaaS、PaaS、SaaS、实例、镜像、板卡……别人说什么你都能接上</span></div>
+          <div class="goal"><b>知道我们在卖什么</b><span>一句话说清我们的产品，以及它在产业链上的位置</span></div>
+          <div class="goal"><b>看懂客户在问什么</b><span>客户提对接需求时，你知道他在说哪一步</span></div>
+          <div class="goal"><b>知道钱怎么来</b><span>板卡、带宽、IP、存储——收入由哪些部分组成</span></div>
+        </div>
+        <div class="meta">内部培训材料 · 全部用大白话讲，不要求技术背景</div>
+      </div>
+    </section>
+
+    <!-- ===== M1 ===== -->
+    <section id="m1">
+      <div class="card">
+        <div class="kicker">第 1 课</div>
+        <h2 class="sec">先用租房打个比方：IaaS、PaaS、SaaS</h2>
+        <p class="lead">这三个词是云计算行业的地基。听不懂它们，后面所有对话都会卡住。但其实用租房就能讲明白。</p>
+
+        <h3>房子还是那套房子，区别在于"你管多少事"</h3>
+        <div class="grid c3">
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>IaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">租毛坯房</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">房东给你<b>墙、地、水电</b>。家具家电、装修、打扫，全是你自己的事。</p>
+              <p style="margin:0"><b>云上对应：</b>租一台服务器。操作系统以上全部你自己装、自己维护。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot"></span>PaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">租精装公寓</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">房东把<b>水电、家电、网络</b>都弄好了，你拎包入住。</p>
+              <p style="margin:0"><b>云上对应：</b>底层都搭好了，你直接调用能力。<b style="color:var(--accent)">我们做的就是这一层。</b></p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>SaaS<br><span style="font-size:12px;color:var(--muted);font-weight:400">住酒店</span></div>
+            <div class="xb" style="display:block">
+              <p style="margin:0 0 8px">什么都不用管，<b>付钱就住</b>。但你也不能改房间结构。</p>
+              <p style="margin:0"><b>云上对应：</b>打开就能用的软件，比如在线文档、客户管理系统。</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>换成云手机，长这样</h3>
+        <div class="layers">
+          <div class="layer" style="--cs:var(--panel-2);--cl:var(--muted)">
+            <div class="who"><span class="dot"></span>IaaS · 基础设施</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">机房里的服务器、网络、存储</div></div>
+            <div class="lrow"><div class="lk">行业里的例子</div><div class="lv">租一批 ARM 服务器</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv">云厂商、IDC 机房</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--accent-soft);--cl:var(--accent)">
+            <div class="who"><span class="dot"></span>PaaS · 平台能力</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">把服务器变成「能用的能力」，提供接口给别人调用</div></div>
+            <div class="lrow"><div class="lk">行业里的例子</div><div class="lv">调一个接口，就能开出一台云手机</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv"><b style="color:var(--accent)">我们</b></div></div>
+          </div>
+          <div class="layer" style="--cs:var(--green-soft);--cl:var(--green)">
+            <div class="who"><span class="dot"></span>SaaS · 现成软件</div>
+            <div class="lrow"><div class="lk">提供什么</div><div class="lv">打开就能用的成品</div></div>
+            <div class="lrow"><div class="lk">行业里的例子</div><div class="lv">一个「多账号运营工具」网站，打开就能管账号</div></div>
+            <div class="lrow"><div class="lk">谁在做</div><div class="lv">我们的客户（开发者、软件公司）</div></div>
+          </div>
+        </div>
+
+        <div class="note blue">
+          <b>一句话记住</b>IaaS 卖"资源"，PaaS 卖"能力"，SaaS 卖"成品"。<br>
+          越往上，客户要做的事越少，但能改的东西也越少。
+        </div>
+
+        <div class="note amber">
+          <b>为什么这个区分对我们特别重要</b>因为<b>我们不做面向终端用户的软件</b>。我们的客户是"想做云手机生意的公司"——他们买我们的能力，再包装成自己的产品卖给最终用户。<br>
+          所以客户提需求时，说的往往是"我要能批量开机器、要能拿到设备信息、要能知道任务跑完没有"，而不是"这个按钮不好看"。理解这一点，你就不会用做 C 端产品的方式去理解我们的业务。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M2 ===== -->
+    <section id="m2">
+      <div class="card">
+        <div class="kicker">第 2 课</div>
+        <h2 class="sec">云手机到底是什么</h2>
+        <p class="lead">名字听着玄，原理其实一句话就能说完。</p>
+
+        <h3>一句话版本</h3>
+        <p style="font-size:17px"><b>把一台安卓手机放在机房里，你的屏幕变成它的屏幕。</b></p>
+        <p>你在自己电脑或手机上看到的画面，是云端那台手机<b>实时传过来的视频</b>；你点的每一个位置，会<b>实时传回云端</b>去执行。所以用起来和真手机几乎一样，但那台"手机"其实在几百公里外的机房里。</p>
+
+        <figure>
+          <svg viewBox="0 0 860 250" role="img" aria-label="云手机原理示意图">
+            <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+            <g class="svg-node" data-key="c1">
+              <rect x="20" y="80" width="200" height="90" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+              <text class="svg-label" x="120" y="112" text-anchor="middle">你的屏幕</text>
+              <text class="svg-sub" x="120" y="133" text-anchor="middle">电脑 / 平板 / 手机</text>
+              <text class="svg-sub" x="120" y="152" text-anchor="middle">只是一个"显示器 + 遥控器"</text>
+            </g>
+            <path class="svg-arrow" d="M222,105 L338,105" marker-end="url(#a1)"/>
+            <path class="svg-arrow" d="M338,148 L222,148" marker-end="url(#a1)"/>
+            <text class="svg-sub" x="280" y="95" text-anchor="middle">画面传下来</text>
+            <text class="svg-sub" x="280" y="172" text-anchor="middle">操作传上去</text>
+            <g class="svg-node" data-key="c2">
+              <rect x="342" y="58" width="240" height="134" rx="12" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+              <text class="svg-label" x="462" y="88" text-anchor="middle">机房里的云手机</text>
+              <text class="svg-sub" x="462" y="110" text-anchor="middle">一整套完整的安卓系统</text>
+              <text class="svg-sub" x="462" y="129" text-anchor="middle">能装 App、能联网、能跑任务</text>
+              <text class="svg-sub" x="462" y="152" text-anchor="middle">7×24 不关机</text>
+              <text class="svg-sub" x="462" y="171" text-anchor="middle">坏了不影响你的设备</text>
+            </g>
+            <path class="svg-arrow" d="M584,125 L700,125" marker-end="url(#a1)"/>
+            <text class="svg-sub" x="642" y="115" text-anchor="middle">看起来</text>
+            <text class="svg-sub" x="642" y="145" text-anchor="middle">就是一台真手机</text>
+            <g class="svg-node" data-key="c3">
+              <rect x="704" y="80" width="136" height="90" rx="12" fill="var(--violet-soft)" stroke="var(--violet)" stroke-width="1.6"/>
+              <text class="svg-label" x="772" y="112" text-anchor="middle">各种 App</text>
+              <text class="svg-sub" x="772" y="133" text-anchor="middle">社交、电商</text>
+              <text class="svg-sub" x="772" y="152" text-anchor="middle">游戏、办公</text>
+            </g>
+          </svg>
+          <figcaption>云手机的工作原理：屏幕在本地，手机在云端</figcaption>
+        </figure>
+        <div class="detail" id="detail1"><b>点击图中任一模块</b>查看它在实际业务里代表什么。</div>
+      </div>
+    </section>
+
+    <!-- ===== M3 ===== -->
+    <section id="m3">
+      <div class="card">
+        <div class="kicker">第 3 课</div>
+        <h2 class="sec">我们的位置：一条链上的三个角色</h2>
+        <p class="lead">搞清楚"我们服务谁、谁服务最终用户"，是理解这份工作的起点。</p>
+
+        <figure>
+          <svg viewBox="0 0 860 210" role="img" aria-label="云手机产业链三个角色">
+            <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+            <g class="svg-node" data-key="r1">
+              <rect x="14" y="62" width="190" height="86" rx="12" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.5"/>
+              <text class="svg-label" x="109" y="92" text-anchor="middle">上游</text>
+              <text class="svg-sub" x="109" y="113" text-anchor="middle">机房、服务器</text>
+              <text class="svg-sub" x="109" y="131" text-anchor="middle">网络带宽、IP</text>
+            </g>
+            <path class="svg-arrow" d="M206,105 L246,105" marker-end="url(#a2)"/>
+            <g class="svg-node on" data-key="r2">
+              <rect x="250" y="42" width="220" height="126" rx="12" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2"/>
+              <text class="svg-label" x="360" y="74" text-anchor="middle" style="font-size:15px">我们</text>
+              <text class="svg-sub" x="360" y="97" text-anchor="middle">云手机 PaaS 平台</text>
+              <text class="svg-sub" x="360" y="118" text-anchor="middle">把资源变成"能力"</text>
+              <text class="svg-sub" x="360" y="140" text-anchor="middle">提供接口给客户调用</text>
+            </g>
+            <path class="svg-arrow" d="M472,105 L512,105" marker-end="url(#a2)"/>
+            <text class="svg-sub" x="492" y="95" text-anchor="middle">接口</text>
+            <g class="svg-node" data-key="r3">
+              <rect x="516" y="62" width="186" height="86" rx="12" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.5"/>
+              <text class="svg-label" x="609" y="92" text-anchor="middle">我们的客户</text>
+              <text class="svg-sub" x="609" y="113" text-anchor="middle">软件公司 / 开发者</text>
+              <text class="svg-sub" x="609" y="131" text-anchor="middle">做成自己的产品</text>
+            </g>
+            <path class="svg-arrow" d="M704,105 L744,105" marker-end="url(#a2)"/>
+            <g class="svg-node" data-key="r4">
+              <rect x="748" y="62" width="100" height="86" rx="12" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.5"/>
+              <text class="svg-label" x="798" y="98" text-anchor="middle">最终用户</text>
+              <text class="svg-sub" x="798" y="119" text-anchor="middle">打开就用</text>
+            </g>
+          </svg>
+          <figcaption>云手机价值链：我们做中间的"能力层"</figcaption>
+        </figure>
+        <div class="detail" id="detail2"><b>点击任一角色</b>了解它在业务里的实际含义。</div>
+
+        <div class="note green">
+          <b>这个位置决定了我们的工作方式</b>我们不直接面对最终用户，所以：<br>
+          · 客户要的是<b>稳定、可控、能批量</b>，不是好看的界面；<br>
+          · 客户的客户投诉时，压力会顺着链条传回来，所以<b>稳定性就是生命线</b>；
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M4 ===== -->
+    <section id="m4">
+      <div class="card">
+        <div class="kicker">第 4 课</div>
+        <h2 class="sec">最常听到的七个词</h2>
+        <p class="lead">这一课是重点。把这七个词搞懂，客户和同事说的话你基本都能听懂。点开卡片看大白话解释。</p>
+
+        <div class="grid c2" id="conceptCards">
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot"></span>① 板卡</div>
+            <div class="xh">一块硬件，能开出很多台云手机</div>
+            <div class="xb">
+              <p><b>大白话：</b>板卡是机房里的<b>一块物理硬件</b>，上面有 CPU、内存、存储。你可以把它想成"一栋宿舍楼"。</p>
+              <p><b>为什么重要：</b>一块板卡上能开出多台云手机（每台叫一个"实例"），就像一栋楼里有很多房间。<b>板卡数量决定了平台能承载多少台云手机</b>，也决定了我们的成本。</p>
+              <p><b>客户会问：</b>"你们有多少板卡？""能不能保证我要的量？"——这是在问我们的产能。</p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot"></span>② 实例</div>
+            <div class="xh">就是"一台云手机"</div>
+            <div class="xb">
+              <p><b>大白话：</b>实例 = 一台完整的云手机，有自己的安卓系统，能自己装 App、自己联网、自己跑任务。</p>
+              <p><b>为什么重要：</b>这是客户真正购买和使用的东西。客户说"我要开 50 台"，说的就是 50 个实例。</p>
+              <p><b>注意：</b>实例是<b>独立</b>的——A 实例上装的 App、登录的账号，不会跑到 B 实例上去。这正是客户要"一机一号"的基础。</p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot"></span>③ 镜像</div>
+            <div class="xh">装系统的"模具"</div>
+            <div class="xb">
+              <p><b>大白话：</b>镜像就是一个<b>已经装好系统和常用 App 的模板</b>。用同一个镜像开出来的实例，初始状态一模一样。</p>
+              <p><b>为什么重要：</b>客户如果要在 200 台云手机上装同一个 App，不需要一台台去装——把 App 打进镜像，用它批量开机器就行了。<b>这是"批量"能力的关键。</b></p>
+              <p><b>客户会问：</b>"支持哪个安卓版本？""能不能定制镜像？"</p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>④ 设备信息（ADI）</div>
+            <div class="xh">云手机的"身份证"</div>
+            <div class="xb">
+              <p><b>大白话：</b>每台手机都有"身份信息"——什么牌子、什么型号、屏幕多大、有没有陀螺仪、WiFi 的 MAC 地址是什么。这一整套信息，行业里常叫 ADI（安卓设备信息）。</p>
+              <p><b>为什么重要：</b>很多 App 会检查这些信息来判断"这是不是一台真手机"。如果 100 台云手机的身份信息全都一样，很容易被识别出来是同一批机器。<b>所以每台实例的身份信息要独立、要像真机。</b></p>
+              <p><b>行业里的两种做法：</b>一种是<b>标准模板</b>（通用配置，够用、启动快）；一种是<b>真机克隆</b>（照着一台真实手机做，仿真度更高）。客户要求高的场景会指定要后者。</p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>⑤ AK / SK</div>
+            <div class="xh">客户调用我们接口的"钥匙 + 印章"</div>
+            <div class="xb">
+              <p><b>大白话：</b>客户要调用我们的接口开云手机，得先证明"我是谁"。AK（Access Key ID）像<b>账号名</b>，SK（Secret Access Key）像<b>密码 + 印章</b>，两个配对使用。</p>
+              <p><b>为什么重要：</b>这是对接的第一步。客户说"我调不通接口"，第一件事就是确认 AK/SK 配对没有、有没有过期、权限够不够。</p>
+              <p><b>安全提醒：</b>SK 相当于密码，泄露了别人就能用客户的账号开机器花钱。<b>任何时候都不要把客户的 SK 发在群里或截图里。</b></p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>⑥ 回调</div>
+            <div class="xh">平台办完事，主动"回个电话"</div>
+            <div class="xb">
+              <p><b>大白话：</b>客户让我们"开 50 台机器"。开机器要花时间，总不能一直等着吧？于是客户留个地址，我们<b>开好一台就通知一次</b>——这个"主动通知"就叫回调。</p>
+              <p><b>为什么重要：</b>它是"异步"业务的标准做法。客户系统靠回调知道任务进度，而不是傻等。</p>
+              <p><b>客户会问：</b>"回调地址怎么配？""失败了会不会重试？""怎么区分是哪个任务的通知？"</p>
+            </div>
+          </div>
+          <div class="xcard">
+            <div class="caret">›</div>
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>⑦ 流 / 延迟</div>
+            <div class="xh">决定"用起来像不像真手机"</div>
+            <div class="xb">
+              <p><b>大白话：</b>你看到的云手机画面，是云端一路传过来的视频流。你点一下，指令再传回云端。<b>这一来一回花的时间，就是延迟。</b></p>
+              <p><b>为什么重要：</b>延迟高，操作起来就"黏手"，像网络卡顿。延迟是云手机体验最直接的指标，也是各平台之间拉开差距的地方。</p>
+              <p><b>客户会问：</b>"延迟多少毫秒？""画面清不清晰？""能不能调画质？"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M5 ===== -->
+    <section id="m5">
+      <div class="card">
+        <div class="kicker">第 5 课</div>
+        <h2 class="sec">客户是怎么用我们的：一次完整对接</h2>
+        <p class="lead">下面是一次典型的接入流程。点击每一步，看它到底发生了什么。</p>
+
+        <div class="steps" id="steps"></div>
+        <div class="detail" id="detail3"><b>点击上方任一步骤</b>查看技术细节和客户常踩的坑。</div>
+
+        <div class="note blue">
+          <b>为什么要懂这个流程</b>因为对接问题是一线最高频的沟通内容。当客户说"我这边开不出机器"，你能立刻判断他卡在哪一步——是密钥不对？余额不足？还是没配回调所以以为没成功？<b>能定位问题在哪一步，比记住接口名字有用得多。</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M6 ===== -->
+    <section id="m6">
+      <div class="card">
+        <div class="kicker">第 6 课</div>
+        <h2 class="sec">钱是怎么来的：四个计费项</h2>
+        <p class="lead">理解收入结构，你才知道哪些客户是优质客户、哪些需求会让我们亏钱。</p>
+
+        <div class="grid c2">
+          <div class="xcard static">
+            <div class="xt"><span class="dot"></span>① 板卡租赁</div>
+            <div class="xh">最主要的收入 · 预付费</div>
+            <div class="xb" style="display:block">
+              <p style="margin:0">按板卡数量收月租，<b>不足一个月也按一个月算</b>。这是我们的基本盘——机器摆在那儿就有收入。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--violet)"></span>② 网络带宽</div>
+            <div class="xh">按用量收 · 后付费</div>
+            <div class="xb" style="display:block">
+              <p style="margin:0">云手机画面要实时传出去，非常吃带宽。按<b>月 95 峰值</b>计费（下一节细讲）。客户用量越大，这部分收入越高。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--green)"></span>③ IP 地址</div>
+            <div class="xh">超出配额才收 · 预付费</div>
+            <div class="xb" style="display:block">
+              <p style="margin:0">每台服务器会附赠几个公网 IP，<b>超出部分按个数收费</b>。</p>
+            </div>
+          </div>
+          <div class="xcard static">
+            <div class="xt"><span class="dot" style="background:var(--amber)"></span>④ 网络存储</div>
+            <div class="xh">按用量收 · 后付费</div>
+            <div class="xb" style="display:block">
+              <p style="margin:0">客户存的数据按 <b>GB × 天</b> 计费。存得越久、存得越多，费用越高。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="note amber">
+          <b>两个词要分清：预付费 vs 后付费</b>
+          <b>预付费</b>＝先交钱再用（板卡、IP），收入确定、现金流好；<b>后付费</b>＝先用后结算（带宽、存储），每月出账，有<b>客户欠费</b>的风险。<br>
+          所以做后付费业务时，"这个客户会不会跑单"是真实存在的经营问题。
+        </div>
+
+        <h3>重点概念：月 95 峰值计费</h3>
+        <p>这个词新人最容易懵。其实规则很简单，而且很公平：</p>
+        <ol>
+          <li>系统每隔几分钟测一次网速，一整天下来攒了很多个数据点。</li>
+          <li>把一整个月的数据点<b>从高到低排队</b>。</li>
+          <li>把最高的那 <b>5% 直接扔掉</b>（当作偶发抖动，不算数）。</li>
+          <li>剩下的里面<b>最高的那个值</b>，就是计费依据。</li>
+        </ol>
+        <p>打个比方：就像考试评分时<b>去掉最高分</b>，避免一次偶然的尖峰让你多付一整月的钱。</p>
+
+        <div class="calc">
+          <div class="ctl">
+            <label>拖动看看：客户这个月出现几次"流量尖峰"<b id="spikeLabel">1 次</b></label>
+            <input type="range" id="spike" min="0" max="10" step="1" value="1">
+          </div>
+          <div class="chart" id="chart"></div>
+          <div class="chartlegend">
+            <span><i style="background:var(--accent)"></i>日常水平</span>
+            <span><i style="background:var(--red)"></i>高于计费线的采样点（不计入）</span>
+            <span><i style="background:var(--green)"></i>计费线 —— 按这个值收费</span>
+          </div>
+          <div class="out">
+            <div class="o"><div class="k">当月真实最高峰值</div><div class="v" id="peakMax">—</div></div>
+            <div class="o hi"><div class="k">实际计费（95 峰值）</div><div class="v" id="peak95">—</div></div>
+            <div class="o"><div class="k">免罚额度</div><div class="v" id="peakQuota">—</div></div>
+          </div>
+          <div class="verdict" id="peakVerdict">—</div>
+        </div>
+        <p style="font-size:13.5px;color:var(--muted)">示意演示：这里用 40 个采样点代表一个月（真实平台约每 5 分钟采样一次，一个月近万个点）。<b>规则完全一致：丢弃最高的 5%。</b></p>
+
+        <div class="note green">
+          <b>为什么这套规则对双方都好</b>对客户：偶尔一次突发流量不会导致天价账单，成本可预期。对我们：客户长期稳定占用高带宽是真实成本，必须收回来。<b>这是一个双方都能接受的折中方案。</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M7 ===== -->
+    <section id="m7">
+      <div class="card">
+        <div class="kicker">第 7 课</div>
+        <h2 class="sec">红线：什么能做，什么不能做</h2>
+        <p class="lead">这一课请务必记住。新员工最容易犯的错，就是替客户打了不该打的包票。</p>
+
+        <h3>产品本身的三个限制</h3>
+        <div class="layers">
+          <div class="layer" style="--cs:var(--red-soft);--cl:var(--red)">
+            <div class="who"><span class="dot"></span>没有 SIM 卡和短信</div>
+            <div class="lrow"><div class="lk">意思是</div><div class="lv">不能打电话、不能收发短信、没有手机号</div></div>
+            <div class="lrow"><div class="lk">为什么这样设计</div><div class="lv">合规要求——需要短信验证的业务用不了</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--red-soft);--cl:var(--red)">
+            <div class="who"><span class="dot"></span>不能跨账号 / 跨地域迁数据</div>
+            <div class="lrow"><div class="lk">意思是</div><div class="lv">数据不能从一个客户的账号搬到另一个账号</div></div>
+            <div class="lrow"><div class="lk">为什么这样设计</div><div class="lv">安全隔离，防止数据被违规转移</div></div>
+          </div>
+          <div class="layer" style="--cs:var(--red-soft);--cl:var(--red)">
+            <div class="who"><span class="dot"></span>禁止二次虚拟化、挖矿等</div>
+            <div class="lrow"><div class="lk">意思是</div><div class="lv">不能在云手机里再开虚拟机，不能用来挖矿</div></div>
+            <div class="lrow"><div class="lk">为什么这样设计</div><div class="lv">平台安全，防止资源被滥用</div></div>
+          </div>
+        </div>
+
+        <div class="note red">
+          <b>合规红线，不能含糊</b>
+          <b>支持：</b>移动办公、应用测试、游戏娱乐、内容创作等合法场景。<br>
+          <b>禁止：</b>违法违规活动、恶意攻击、数据挖掘等。<br>
+          <b>对外沟通的铁律：</b>我们只描述技术能力，<b>不替客户判断他的用途是否合法合规</b>。客户如果问"我这样用行不行"，正确回答是"这需要您自行确认目标平台的规则和当地法律法规"。<br>
+          <b>不要为了成单，暗示或默许客户用于灰产。</b>一旦出事，平台要承担连带责任，这不是销售业绩能覆盖的风险。
+        </div>
+
+        <div class="note blue">
+          <b>还有一条：不向客户提我们的 C 端产品</b>
+          我们自己也在做 C 端云手机（<b>QT Phone</b>），但面向 <b>PaaS 客户、白标客户</b>时<b>不主动提及、不透露</b>——客户会误以为我们在抢他的终端市场，马上转为防备。<br>
+          对客户的口径只有一句：<b>「上面卖什么产品是你们的事，我们只做设备层，不碰终端。」</b>
+        </div>
+
+        <div class="note amber">
+          <b>另外一条容易被忽略的</b>不要对外承诺具体的可用性数字（比如"保证 99.99% 不宕机"）或性能数字，除非那是官方明确对外发布的。<b>口头承诺在出问题时会被当成把柄。</b>不确定的，回去确认后再回复。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M8 ===== -->
+    <section id="m8">
+      <div class="card">
+        <div class="kicker">第 8 课</div>
+        <h2 class="sec">随堂测验</h2>
+        <p class="lead">8 道题，全是这一课讲过的内容。选完点提交看解析。</p>
+        <div class="quiz" id="quiz"></div>
+        <div class="score">
+          <div class="big" id="scoreNum">—</div>
+          <div class="txt" id="scoreTxt">尚未提交</div>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn" id="submitQuiz">提交答案</button>
+            <button class="btn ghost" id="resetQuiz">重做</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== M9 ===== -->
+    <section id="m9">
+      <div class="card">
+        <div class="kicker">附录</div>
+        <h2 class="sec">术语速查表</h2>
+        <p class="lead">开会时听到不懂的词，回来查这里。</p>
+        <div class="gl gloss">
+          <div class="row"><div class="t">IaaS</div><div class="d">基础设施即服务。卖的是服务器、网络、存储这些"资源"，上面的东西客户自己搭。</div></div>
+          <div class="row"><div class="t">PaaS</div><div class="d">平台即服务。卖的是"能力"，客户通过接口调用。<b>我们在这个位置。</b></div></div>
+          <div class="row"><div class="t">SaaS</div><div class="d">软件即服务。卖的是开箱即用的成品软件，最终用户直接用。</div></div>
+          <div class="row"><div class="t">实例</div><div class="d">一台云手机。客户说"开 50 台"，就是 50 个实例。</div></div>
+          <div class="row"><div class="t">板卡</div><div class="d">机房里的物理硬件单元，一块板卡能开多台云手机，决定平台产能。属 PaaS / 渠道视角，对 SaaS 与终端只讲「窗口」。</div></div>
+          <div class="row"><div class="t">镜像</div><div class="d">预装好系统和应用的模板。用同一个镜像开出来的机器初始状态一致，用于批量部署。</div></div>
+          <div class="row"><div class="t">ADI</div><div class="d">安卓设备信息。云手机的"身份证"：品牌、型号、传感器、MAC 地址等。客户在意它够不够"像真机"。</div></div>
+          <div class="row"><div class="t">云真机 / 虚拟机</div><div class="d">云真机＝照着真实手机克隆出来的实例，仿真度高；虚拟机＝标准模板，启动快、成本低。</div></div>
+          <div class="row"><div class="t">AK / SK</div><div class="d">客户调用我们接口的凭证，相当于账号名 + 密码。SK 泄露等于账号被人拿去花钱。</div></div>
+          <div class="row"><div class="t">ADB</div><div class="d">安卓调试工具。开发者用来给云手机装应用、传文件、看日志。</div></div>
+          <div class="row"><div class="t">回调</div><div class="d">任务完成后平台主动通知客户的机制。异步业务的标准做法。</div></div>
+          <div class="row"><div class="t">延迟</div><div class="d">你操作到画面响应之间的时间差。越低越像真手机。</div></div>
+          <div class="row"><div class="t">95 峰值计费</div><div class="d">把一个月里最高的 5% 流量数据丢掉，剩下的最高值作为计费依据。避免偶发尖峰导致天价账单。</div></div>
+          <div class="row"><div class="t">预付费 / 后付费</div><div class="d">先交钱再用 / 先用月底结算。板卡和 IP 是预付费，带宽和存储是后付费。</div></div>
+          <div class="row"><div class="t">PaaS 对接</div><div class="d">客户把我们的接口接进他自己系统的整个过程，是技术支持的日常。</div></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="srcs">
+    <h4 style="margin:0 0 12px">资料来源</h4>
+    <ol>
+      <li>行业概念体系（核心资源：板卡 / 实例 / 镜像；安全认证：AK/SK；开发调试：ADB / ADI；产品计费：板卡租赁 / 带宽 / IP / 存储四项 + 95 峰值规则）按公开行业通识整理。</li>
+      <li>本材料为内部培训用途，术语解释已改写为通用表述，不涉及任何厂商的技术机密或商业条款。</li>
+    </ol>
+  </div>
+  <p>云手机 PaaS 入门 · 内部材料</p>
+  <p>其中的计费规则、限制条款为行业通行的概念性说明，<b>不代表本公司对外报价或服务承诺</b>；对外沟通请以公司正式发布的产品文档与合同条款为准。</p>
+</footer>
+
+<script>
+"use strict";
+
+/* ---------- 主题 ---------- */
+(function(){
+  /* 深浅色：没手动选过就跟随系统（含系统切换实时同步），手动点过则以手动为准 */
+  var btn = document.getElementById('themeBtn');
+  var KEY = 'qtrain-theme';
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  try { localStorage.removeItem(KEY); } catch(e){}
+  try { localStorage.removeItem('paasdeck-theme'); } catch(e){}
+  function saved(){ try { return sessionStorage.getItem(KEY); } catch(e){ return null; } }
+  function apply(dark){
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (btn) btn.textContent = dark ? '\u2600\ufe0f \u6d45\u8272' : '\ud83c\udf19 \u6df1\u8272';
+  }
+  var s = saved();
+  if (s === 'dark' || s === 'light') { apply(s === 'dark'); }
+  else { apply(!!(mq && mq.matches)); }
+  if (mq) {
+    var onSys = function(e){ var cur = saved(); if (cur !== 'dark' && cur !== 'light') apply(e.matches); };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+    else if (mq.addListener) mq.addListener(onSys);
+  }
+  if (btn) btn.addEventListener('click', function(){
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    try { sessionStorage.setItem(KEY, dark ? 'light' : 'dark'); } catch(e){}
+    apply(!dark);
+  });
+})();
+
+/* ---------- 导航 ---------- */
+var MODULES = [
+  ['m0','课程首页'], ['m1','1 · IaaS/PaaS/SaaS'], ['m2','2 · 云手机是什么'],
+  ['m3','3 · 价值链角色'], ['m4','4 · 七个核心词'], ['m5','5 · 一次完整对接'],
+  ['m6','6 · 钱从哪来'], ['m7','7 · 红线'],
+  ['m8','8 · 随堂测验'], ['m9','术语速查']
+];
+(function(){
+  var nav = document.getElementById('nav'), links = {};
+  MODULES.forEach(function(m){
+    var a = document.createElement('a');
+    a.href = '#' + m[0]; a.textContent = m[1]; a.dataset.t = m[0];
+    nav.appendChild(a); links[m[0]] = a;
+  });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting) {
+        Object.keys(links).forEach(function(k){ links[k].classList.remove('active'); });
+        if (links[en.target.id]) links[en.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin:'-72px 0px -70% 0px', threshold:0 });
+  MODULES.forEach(function(m){ var el = document.getElementById(m[0]); if (el) obs.observe(el); });
+
+  var bar = document.getElementById('progress');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%';
+  }, { passive:true });
+})();
+
+/* ---------- 展开卡片 ---------- */
+document.querySelectorAll('.xcard:not(.static)').forEach(function(c){
+  c.addEventListener('click', function(){ c.classList.toggle('open'); });
+});
+
+/* ---------- SVG 交互 ---------- */
+var INFO = {
+  c1: ['你的屏幕','电脑、平板、手机都行，它只负责显示画面和把你的操作传回去。','所以客户的最终用户用什么设备不重要——真正干活的机器在云端。这也解释了为什么"多终端支持"是 PaaS 平台的一个卖点。'],
+  c2: ['机房里的云手机','一台完整的安卓手机，有系统、有存储、能联网、能装 App，7×24 小时开着。','它不受你本地设备影响：你电脑关机了，云手机上的任务照样跑。这是"挂机""批量跑任务"能成立的前提。'],
+  c3: ['各种 App','社交、电商、游戏、办公类应用，正常运行在云手机里。','客户真正想跑的是这些 App。所以客户提需求时，落脚点往往是"我那个 App 能不能正常跑"，而不是抽象的云手机功能。'],
+  r1: ['上游：机房与资源','包括服务器硬件、机房机位、网络带宽、公网 IP。','这一层的成本决定我们的底价。上游涨价，我们的成本立刻受影响，所以采购和资源规划是实打实的经营环节。'],
+  r2: ['我们：云手机 PaaS 平台','把上游的裸资源变成客户能调用的能力：开实例、装应用、传文件、看画面、批量管理。','我们的价值在于"省事"——客户不需要懂机房、虚拟化、音视频传输，调个接口就能用。技术门槛越高，我们的位置越稳。'],
+  r3: ['我们的客户：软件公司 / 开发者','他们买我们的能力，包装成自己的产品（SaaS）卖给最终用户。','所以客户的成功就是我们的成功：他们卖得好，才会开更多机器。理解客户的业务模式，才能提供有用的建议。'],
+  r4: ['最终用户','打开客户的产品就能用，完全不知道背后是云手机。','这条链上任何一环出问题，最终都会以"客户投诉"的形式传回到我们这里。这就是为什么稳定性和响应速度是我们的生命线。']
+};
+function bindSVG(root, panelId){
+  var panel = document.getElementById(panelId);
+  var nodes = root.querySelectorAll('.svg-node');
+  nodes.forEach(function(g){
+    g.addEventListener('click', function(){
+      var info = INFO[g.dataset.key]; if (!info) return;
+      nodes.forEach(function(n){ n.classList.remove('on'); });
+      g.classList.add('on');
+      panel.innerHTML = '<b>' + info[0] + '</b>' + info[1] +
+        (info[2] ? '<p style="margin:10px 0 0;color:var(--muted)">' + info[2] + '</p>' : '');
+    });
+  });
+}
+var figs = document.querySelectorAll('figure');
+bindSVG(figs[0].querySelector('svg'), 'detail1');
+bindSVG(figs[1].querySelector('svg'), 'detail2');
+
+/* ---------- 对接流程 ---------- */
+var STEPS = [
+  ['① 拿到密钥', '客户在我们的后台创建一组 AK / SK，相当于拿到"账号 + 密码"。',
+   '这是所有对接的起点。客户说"接口调不通"，第一件事就是核对：AK/SK 对不对、有没有复制时多带了空格、这组密钥有没有被停用、权限够不够。'],
+  ['② 调用接口创建实例', '客户系统调我们的接口，说"给我开 5 台云手机"，并指定用哪个镜像、什么规格。',
+   '接口是异步的：不是立刻返回一台开好的机器，而是先返回一个"任务编号"，表示"我收到了，正在办"。客户拿到编号才能查进度。'],
+  ['③ 平台调度资源', '我们的系统在机房里找空闲的板卡资源，把实例真正创建出来。',
+   '这一步要花时间（秒级到分钟级）。高峰期资源紧张时可能排队。客户抱怨"开得慢"，往往是在这一步，而不是接口本身有问题。'],
+  ['④ 实例就绪，通知客户', '机器开好了，我们通过<b>回调</b>主动告诉客户系统："这几台可以用了"，并附上实例信息。',
+   '回调是最容易出问题的一环：客户地址填错、服务器防火墙没放行、接口返回太慢被判定失败。排查对接问题时优先查这里。'],
+  ['⑤ 客户端开始显示画面', '客户的软件通过我们的客户端组件连上云手机，把画面拉到用户屏幕上。',
+   '这一步涉及音视频传输。用户感受到的"卡不卡、清不清楚"就取决于这里。客户通常会问延迟和画质能不能调。'],
+  ['⑥ 用户操作 / 自动化跑任务', '用户在画面上操作，或者客户系统下发自动化任务（比如批量发内容）。',
+   '这是客户买云手机的真正目的。到这一步，业务就跑起来了，用得越久、开得越多，我们的收入越稳定。'],
+  ['⑦ 释放资源', '客户不用了就释放实例，资源回到池子里给别人用。',
+   '注意计费规则：板卡按月起租、不足一月按一月算。客户如果频繁开了又退，成本其实不划算——这是给客户做方案时值得提醒的点。']
+];
+(function(){
+  var box = document.getElementById('steps');
+  var panel = document.getElementById('detail3');
+  STEPS.forEach(function(s, i){
+    var d = document.createElement('div');
+    d.className = 'step';
+    d.innerHTML = '<div class="n">' + (i+1) + '</div><div class="c"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>';
+    box.appendChild(d);
+    d.addEventListener('click', function(){
+      box.querySelectorAll('.step').forEach(function(x){ x.classList.remove('on'); });
+      d.classList.add('on');
+      panel.innerHTML = '<b>' + s[0] + ' — 需要注意什么</b>' + s[2];
+    });
+  });
+})();
+
+/* ---------- 95 峰值演示 ---------- */
+(function(){
+  var N = 40;                 // 40 个采样点代表一个月（简化）
+  var SPIKE_V = 700;          // 尖峰时的流量值
+  var BASE = [];
+  for (var i = 0; i < N; i++) {
+    BASE.push(180 + Math.round(60 * Math.sin(i / 3.1)) + (i % 4) * 8);
+  }
+  var CUT = Math.max(1, Math.round(N * 0.05));   // 丢弃最高的 5% = 2 个点
+
+  var spikeInput = document.getElementById('spike');
+  var chart = document.getElementById('chart');
+  var verdict = document.getElementById('peakVerdict');
+  var bars = [];
+  for (var j = 0; j < N; j++) {
+    var b = document.createElement('div');
+    b.className = 'bar';
+    chart.appendChild(b);
+    bars.push(b);
+  }
+
+  function render(){
+    var spikes = +spikeInput.value;
+    document.getElementById('spikeLabel').textContent = spikes + ' 次';
+
+    var vals = BASE.slice();
+    for (var k = 0; k < spikes; k++) {
+      var idx = 10 + k * 2;               // 尖峰分散在月中
+      if (idx < N) vals[idx] = SPIKE_V;
+    }
+
+    var max = Math.max.apply(null, vals);
+    var sorted = vals.slice().sort(function(a, b){ return b - a; });
+    var bill = sorted[CUT];               // 丢掉最高 5% 之后，剩下里的最大值
+
+    vals.forEach(function(v, i){
+      bars[i].style.height = Math.round(v / max * 140) + 'px';
+      bars[i].className = 'bar' + (v > bill ? ' cut' : (v === bill ? ' bill' : ''));
+    });
+
+    document.getElementById('peakMax').textContent = max + ' Mbps';
+    document.getElementById('peak95').textContent = bill + ' Mbps';
+    document.getElementById('peakQuota').textContent = CUT + ' / ' + N + ' 次';
+
+    if (bill >= SPIKE_V) {
+      verdict.className = 'verdict bad';
+      verdict.textContent = '⚠️ 尖峰次数已超过免罚额度（5%）。前 ' + CUT + ' 次尖峰可以免费，第 ' +
+        (CUT + 1) + ' 次开始，计费标准直接跳到尖峰水平 —— ' + SPIKE_V + ' Mbps 要全额付费。';
+    } else {
+      verdict.className = 'verdict ok';
+      verdict.textContent = '✅ 尖峰仍在免罚额度内（前 ' + CUT + ' 次不计），系统按日常水平 ' + bill +
+        ' Mbps 计费，而不是按最高值 ' + max + ' Mbps。';
+    }
+  }
+  spikeInput.addEventListener('input', render);
+  render();
+})();
+
+/* ---------- 测验 ---------- */
+var QUIZ = [
+  { q:'PaaS 和 SaaS 最主要的区别是什么？',
+    o:['PaaS 更便宜','PaaS 卖的是"能力"，客户拿去自己做产品；SaaS 是开箱即用的成品','PaaS 只能给大公司用','两者没有区别，叫法不同而已'], a:1,
+    e:'PaaS 提供接口和平台能力，客户在上面构建自己的产品；SaaS 是最终用户直接使用的成品软件。我们做的是 PaaS，客户做的是 SaaS。' },
+  { q:'客户说"我要开 50 台云手机"，他说的 50 是指什么？',
+    o:['50 块板卡','50 个实例','50 个镜像','50 个 IP 地址'], a:1,
+    e:'一台云手机 = 一个实例。板卡是硬件单元（一块板卡上能开多个实例），镜像是装系统的模板。' },
+  { q:'为什么要给每台云手机配置独立的"设备信息"？',
+    o:['为了好看','为了让每台看起来像不同的真手机，避免被识别为同一批机器','为了省电','为了加快启动速度'], a:1,
+    e:'设备信息（ADI）就像手机的身份证。如果一批云手机的身份信息完全一样，很容易被 App 识别为同一批设备，所以每台都要独立、要像真机。' },
+  { q:'客户的 AK / SK 是什么？',
+    o:['两种计费套餐','调用我们接口的凭证，相当于账号名和密码','两种云手机规格','两个机房位置'], a:1,
+    e:'AK/SK 是客户调用接口的身份凭证。SK 相当于密码，泄露后别人可以用客户的账号开通资源产生费用，绝不能随意转发或截图外发。' },
+  { q:'"回调"的作用是什么？',
+    o:['加快云手机的运行速度','任务完成后平台主动通知客户的机制','降低带宽费用','备份客户数据'], a:1,
+    e:'开机器这类操作需要时间，接口会先返回任务编号，等真正完成后平台再主动通知客户，这就是回调。它是异步业务的标准做法，也是对接中最容易出问题的环节。' },
+  { q:'月 95 峰值计费是怎么算的？',
+    o:['取当月所有流量点的平均值','取当月最高的那一个点','把最高的 5% 数据去掉，剩下里的最高值作为计费依据','按客户承诺的带宽上限收费'], a:2,
+    e:'把一个月的数据点从高到低排队，去掉最高的 5%（当作偶发抖动），剩下里的最高值就是计费依据。相当于"去掉最高分"，避免一次突发尖峰导致天价账单。' },
+  { q:'云手机不能打电话和收发短信，主要原因是？',
+    o:['技术上做不到','合规要求','会影响画面流畅度','客户没有这个需求'], a:1,
+    e:'这是出于合规要求的主动限制。也正因为如此，那些依赖短信验证码的业务无法使用云手机，这是售前需要提前说明的边界。' },
+  { q:'客户问"我打算用你们的云手机做 XX 业务，合规吗"，最合适的回答是？',
+    o:['直接说"没问题，随便用"','说"这个我们不支持"然后结束对话','说明我们的技术能力，并请客户自行确认目标平台规则和当地法律法规','让客户自己去查，不作回应'], a:2,
+    e:'我们的红线是：只描述技术能力，不替客户判断其用途是否合法合规。既要明确说明产品限制，也要把合规判断的责任交还给客户，不能为了成单而含糊承诺。' }
+];
+(function(){
+  var box = document.getElementById('quiz');
+  QUIZ.forEach(function(item, qi){
+    var d = document.createElement('div');
+    d.className = 'q';
+    var html = '<div class="qt"><span class="qn">' + (qi+1) + '.</span><span>' + item.q + '</span></div>';
+    item.o.forEach(function(opt, oi){
+      html += '<label class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
+              '<input type="radio" name="q' + qi + '" value="' + oi + '"><span>' +
+              String.fromCharCode(65+oi) + '. ' + opt + '</span></label>';
+    });
+    html += '<div class="exp" id="exp' + qi + '"></div>';
+    d.innerHTML = html;
+    box.appendChild(d);
+  });
+  document.getElementById('submitQuiz').addEventListener('click', function(){
+    var correct = 0;
+    QUIZ.forEach(function(item, qi){
+      var picked = document.querySelector('input[name="q' + qi + '"]:checked');
+      box.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function(l){ l.classList.remove('right','wrong'); });
+      var right = box.querySelector('.opt[data-q="' + qi + '"][data-o="' + item.a + '"]');
+      if (right) right.classList.add('right');
+      if (picked) {
+        var v = +picked.value;
+        if (v === item.a) correct++;
+        else {
+          var w = box.querySelector('.opt[data-q="' + qi + '"][data-o="' + v + '"]');
+          if (w) w.classList.add('wrong');
+        }
+      }
+      var ex = document.getElementById('exp' + qi);
+      ex.innerHTML = '<b>正确答案：' + String.fromCharCode(65 + item.a) + '</b>　' + item.e;
+      ex.classList.add('show');
+    });
+    var total = QUIZ.length;
+    document.getElementById('scoreNum').textContent = correct + ' / ' + total;
+    var t;
+    if (correct === total) t = '全对。基础概念已经没问题了，可以开始看实际的产品文档。';
+    else if (correct >= total * 0.75) t = '不错。回看答错题目对应的课程，把概念补牢。';
+    else if (correct >= total * 0.5) t = '及格。重点回看第 4 课（七个核心词）和第 6 课（计费）。';
+    else t = '建议从第 1 课重新看一遍，这一课的概念后面每天都会用到。';
+    document.getElementById('scoreTxt').textContent = t;
+  });
+  document.getElementById('resetQuiz').addEventListener('click', function(){
+    box.querySelectorAll('input[type=radio]').forEach(function(r){ r.checked = false; });
+    box.querySelectorAll('.opt').forEach(function(l){ l.classList.remove('right','wrong'); });
+    box.querySelectorAll('.exp').forEach(function(e){ e.classList.remove('show'); e.innerHTML = ''; });
+    document.getElementById('scoreNum').textContent = '—';
+    document.getElementById('scoreTxt').textContent = '尚未提交';
+  });
+})();
+</script>
+</body>
+</html>
