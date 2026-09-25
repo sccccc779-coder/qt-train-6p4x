@@ -325,12 +325,16 @@ function norm(p){ return String(p||'').replace(/[\s-]/g,'').toUpperCase(); }
 
 function mount(html){
   var i = html.lastIndexOf('</body>');
-  if (i > 0) html = html.slice(0,i) + LOCK_BTN + html.slice(i);
-  else html += LOCK_BTN;
+  var patch = '<style>' + COURSE_CSS + '</style>';
+  if (i > 0) html = html.slice(0,i) + patch + LOCK_BTN + html.slice(i);
+  else html += patch + LOCK_BTN;
   document.open();
   document.write(html);
   document.close();
 }
+
+var COURSE_CSS =
+    '/* ===== v1.3 首屏目标卡视觉（讲得清/答得上/算得明/接得住） =====    浅色为主设计，深色通过主题变量自适应。四份课件通用。 */ .hero .goals{counter-reset:g;gap:10px} .hero .goal{   counter-increment:g;position:relative;overflow:hidden;   padding:13px 15px 13px 18px;border-radius:14px;   background:linear-gradient(180deg,var(--panel),var(--panel-2));   border:1px solid var(--line);   box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 18px -12px rgba(15,23,42,.18);   transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease} .hero .goal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;   background:var(--gc,var(--accent))} .hero .goal::after{content:"0" counter(g);position:absolute;right:12px;top:8px;   font-size:26px;font-weight:800;line-height:1;letter-spacing:-.02em;   color:var(--gc,var(--accent));opacity:.13;pointer-events:none} .hero .goal:nth-child(4n+1){--gc:var(--accent);--gsoft:var(--accent-soft)} .hero .goal:nth-child(4n+2){--gc:var(--green);--gsoft:var(--green-soft)} .hero .goal:nth-child(4n+3){--gc:var(--amber);--gsoft:var(--amber-soft)} .hero .goal:nth-child(4n+4){--gc:var(--violet);--gsoft:var(--violet-soft)} .hero .goal b{display:flex;align-items:center;gap:8px;margin:0 0 4px;   color:var(--ink);font-size:13.5px;line-height:22px;letter-spacing:.01em} .hero .goal b::before{content:"";width:22px;height:22px;border-radius:7px;flex:0 0 22px;   display:inline-grid;place-items:center;font-size:11.5px;line-height:1;   background:var(--gsoft,var(--accent-soft));   box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--gc,var(--accent)) 26%,transparent)} .hero .goal:nth-child(4n+1) b::before{content:"🎯"} .hero .goal:nth-child(4n+2) b::before{content:"💬"} .hero .goal:nth-child(4n+3) b::before{content:"🧮"} .hero .goal:nth-child(4n+4) b::before{content:"🛡️"} .hero .goal b,.hero .goal span{position:relative;z-index:1} @media (hover:hover){   .hero .goal:hover{transform:translateY(-2px);     border-color:color-mix(in srgb,var(--gc,var(--accent)) 38%,var(--line));     box-shadow:0 12px 24px -14px rgba(15,23,42,.30)}} @media print{.hero .goal{box-shadow:none}}';
 
 var LOCK_BTN =
   '<button id="__lock" type="button" title="清除本机准入状态">🔒 锁定</button>' +
