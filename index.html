@@ -152,6 +152,33 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
 }
 
 @media print{.nav,.tgl,.modal,.toast{display:none}body{background:#fff}.rv,.hero>*{opacity:1!important;transform:none!important;animation:none!important}}
+
+/* ===== v1.4 主界面：排版收紧 + 层级强化 ===== */
+.hero{margin-bottom:26px}
+.markWrap{margin:0 auto 14px}
+.eyebrow{margin:0 0 8px}
+h1{margin:0 0 11px}
+.slogan{margin:0 0 12px}
+.slogan i{padding:5px 13px}
+.lede,footer .ft{text-wrap:pretty}
+
+.secLabel{display:flex;align-items:center;gap:12px;margin:0 0 13px;
+  font-size:12px;font-weight:600;letter-spacing:.09em;color:var(--muted)}
+.secLabel::after{content:"";flex:1;height:1px;background:var(--line)}
+
+a.card{grid-template-columns:auto 1fr auto;gap:16px}
+a.card .num{background:var(--accent);color:#fff;font-size:15px;font-weight:600;
+  box-shadow:0 4px 10px -4px color-mix(in srgb,var(--accent) 62%,transparent)}
+a.card .m{padding-top:9px;border-top:1px solid var(--line);font-size:12px}
+
+footer{margin-top:48px;padding-top:20px;line-height:1.9}
+footer .ft{margin:0}
+footer .ftsub{margin:6px 0 0;font-size:11.5px;opacity:.78}
+
+.sheet .mdesc{margin:0 0 16px;line-height:1.65}
+.mrow{gap:9px}
+.mhint{line-height:1.65}
+@media (max-width:600px){.secLabel{margin:0 0 11px}}
 </style>
 <script>
 /* 主题预置：首次绘制前定好深浅，避免闪白；全站共用一个键 */
@@ -184,6 +211,7 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
     <p class="lede">专为社媒增长打造的 AI 云手机平台 · 按 ①→④ 顺序看：先技术底，再业务面</p>
     <p class="meta"><span>用 Chrome / Edge / Safari 打开，支持手机</span><span class="dot"></span><span>内部资料，请勿外传</span></p>
   </section>
+  <h2 class="secLabel">四份材料 · 建议按序阅读</h2>
   <section class="list">
     <a class="card rv" href="#" data-slug="arm"><span class="num">①</span>
       <div><div class="t">云手机 ARM 基础</div>
@@ -202,7 +230,10 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
       <div class="d">客户与打法：客户五类、渠道代理、开场话术与竞品铁律。</div>
       <div class="m">🔒 内部资料 · 严禁外发</div></div><span class="chev">›</span></a>
   </section>
-  <footer class="rv">内部培训用途，可离线打开 / 打印为 PDF；《商务手册》严禁外发；内容不代表对外报价或承诺。准入码仅限本人使用，请勿转发。</footer>
+  <footer class="rv">
+  <p class="ft">内部培训用途，可离线打开 / 打印为 PDF；《商务手册》严禁外发；内容不代表对外报价或承诺。</p>
+  <p class="ftsub">准入码仅限本人使用，请勿转发 · 支持深浅色与页内搜索（Ctrl/⌘+K）</p>
+</footer>
 </main>
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mt">
   <div class="veil" data-close></div>
@@ -273,12 +304,16 @@ function norm(p){ return String(p||'').replace(/[\s-]/g,'').toUpperCase(); }
 
 function mount(html){
   var i = html.lastIndexOf('</body>');
-  if (i > 0) html = html.slice(0,i) + LOCK_BTN + html.slice(i);
-  else html += LOCK_BTN;
+  var patch = '<style>' + COURSE_CSS + '</style>';
+  if (i > 0) html = html.slice(0,i) + patch + LOCK_BTN + html.slice(i);
+  else html += patch + LOCK_BTN;
   document.open();
   document.write(html);
   document.close();
 }
+
+var COURSE_CSS =
+    '/* ===== v1.4 课件统一排版与格式（mount 时注入，四份课件通用） ===== */  /* ---- 1. 首屏目标卡视觉：四色分项 + 图标徽标 + 序号水印 ---- */ .hero .goals{counter-reset:g;gap:10px} .hero .goal{   counter-increment:g;position:relative;overflow:hidden;   padding:13px 15px 13px 18px;border-radius:14px;   background:linear-gradient(180deg,var(--panel),var(--panel-2));   border:1px solid var(--line);   box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 18px -12px rgba(15,23,42,.18);   transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease} .hero .goal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;   background:var(--gc,var(--accent))} .hero .goal::after{content:"0" counter(g);position:absolute;right:12px;top:8px;   font-size:26px;font-weight:800;line-height:1;letter-spacing:-.02em;   color:var(--gc,var(--accent));opacity:.13;pointer-events:none} .hero .goal:nth-child(4n+1){--gc:var(--accent);--gsoft:var(--accent-soft)} .hero .goal:nth-child(4n+2){--gc:var(--green);--gsoft:var(--green-soft)} .hero .goal:nth-child(4n+3){--gc:var(--amber);--gsoft:var(--amber-soft)} .hero .goal:nth-child(4n+4){--gc:var(--violet);--gsoft:var(--violet-soft)} .hero .goal b{display:flex;align-items:center;gap:8px;margin:0 0 4px;   color:var(--ink);font-size:13.5px;line-height:22px;letter-spacing:.01em} .hero .goal b::before{content:"";width:22px;height:22px;border-radius:7px;flex:0 0 22px;   display:inline-grid;place-items:center;font-size:11.5px;line-height:1;   background:var(--gsoft,var(--accent-soft));   box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--gc,var(--accent)) 26%,transparent)} .hero .goal:nth-child(4n+1) b::before{content:"🎯"} .hero .goal:nth-child(4n+2) b::before{content:"💬"} .hero .goal:nth-child(4n+3) b::before{content:"🧮"} .hero .goal:nth-child(4n+4) b::before{content:"🛡️"} .hero .goal b,.hero .goal span{position:relative;z-index:1} @media (hover:hover){   .hero .goal:hover{transform:translateY(-2px);     border-color:color-mix(in srgb,var(--gc,var(--accent)) 38%,var(--line));     box-shadow:0 12px 24px -14px rgba(15,23,42,.30)}}  /* ---- 2. 标题梯度与行距：让层级更清楚 ---- */ h1{letter-spacing:-.022em;line-height:1.28} h2,.sec{line-height:1.4;letter-spacing:-.014em} h3{line-height:1.5;letter-spacing:-.008em} p,li{line-height:1.78} .kicker{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase} .lead{color:var(--muted);line-height:1.75}  /* ---- 3. 侧栏目录：选中态更明确 ---- */ .sidenav a{border-radius:9px;padding:7px 11px;margin:1px 0;   transition:background .16s ease,color .16s ease} .sidenav a:hover{background:var(--panel-2);color:var(--ink)} .sidenav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600;   box-shadow:inset 2px 0 0 var(--accent)} .sidenav::-webkit-scrollbar{width:6px} .sidenav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}  /* ---- 4. 表格：表头底纹 + 行悬停 ---- */ table{border-collapse:collapse;width:100%} th{background:var(--panel-2);font-weight:600;text-align:left;color:var(--ink)} th,td{padding:9px 12px;border-bottom:1px solid var(--line)} tbody tr:hover{background:color-mix(in srgb,var(--accent) 4%,transparent)}  /* ---- 5. 并列条目：左侧细色条提升可读性 ---- */ .gl .row{position:relative;padding-left:12px} .gl .row::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;   border-radius:2px;background:color-mix(in srgb,var(--accent) 45%,transparent)} .gl .row .t{color:var(--ink)}  /* ---- 6. 可展开卡片：明确可点 + 展开态着色 ---- */ .xcard:not(.static){cursor:pointer} .xcard:not(.static):hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))} .xcard.open{background:color-mix(in srgb,var(--accent) 3%,var(--panel))}  /* ---- 7. 随堂测验：选项与得分 ---- */ .opt{border-radius:10px;transition:background .15s ease,border-color .15s ease} .opt:hover{background:var(--panel-2)} .score .big{letter-spacing:-.02em}  /* ---- 8. 顶栏按钮 ---- */ .topbar .tbtn{transition:background .16s ease,border-color .16s ease,color .16s ease} .topbar .tbtn:hover{border-color:var(--accent);color:var(--accent)}  @media print{   .hero .goal{box-shadow:none}   tbody tr:hover{background:transparent} }';
 
 var LOCK_BTN =
   '<button id="__lock" type="button" title="清除本机准入状态">🔒 锁定</button>' +
