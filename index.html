@@ -31,6 +31,10 @@ a.card .t{font-weight:700;color:var(--ink);font-size:18px;margin-bottom:6px}
 a.card .d{font-size:14.5px;color:var(--muted);margin-bottom:10px}
 a.card .m{font-size:13px;color:var(--accent);font-weight:600}
 footer{margin-top:34px;font-size:12.5px;color:var(--muted);line-height:1.9;border-top:1px solid var(--line);padding-top:18px}
+footer .ft{margin:0}
+footer .ver{margin-top:6px;opacity:.85}
+footer .ft{max-width:none}
+@media(min-width:900px){footer .ft{white-space:nowrap}}
 
     body{line-break:strict;text-wrap:pretty}
     h1,h2,h3{text-wrap:balance}
@@ -87,9 +91,8 @@ a.card .m{letter-spacing:.02em}
     </a>
   </div>
   <footer>
-    四份材料均为内部培训用途，<b>正文以 AES-256-GCM 加密存放</b>，解锁后可离线阅读、可打印成 PDF；其中《商务手册》标注「内部资料 · 严禁外发」。<br>
-    <div class="ver">v1.1 · 2026-09-25　·　四份课件均已支持深浅色、页内搜索（Ctrl/⌘+K）与学习进度记录</div>
-    内容为概念性说明，<strong>不代表公司对外报价或服务承诺</strong>；对外沟通请以公司正式文档与合同条款为准。
+    <p class="ft">内部培训用途，可离线阅读 / 打印；《商务手册》严禁外发；不代表对外报价或承诺，对外以合同为准。</p>
+    <div class="ver">v1.1 · 2026-09-25 · 支持深浅色、页内搜索（Ctrl/⌘+K）与学习进度记录</div>
   </footer>
 </div>
 
