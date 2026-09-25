@@ -52,7 +52,7 @@ h1{font-size:clamp(30px,5.6vw,47px);line-height:1.1;letter-spacing:-.032em;font-
 .slogan{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 14px}
 .slogan i{font-style:normal;font-size:clamp(15px,2.3vw,18px);font-weight:600;letter-spacing:-.01em;
   color:var(--accent);background:var(--accent-soft);border-radius:9px;padding:5px 14px}
-.lede{font-size:17px;color:var(--body);margin:0 auto 12px;max-width:58ch}
+.lede{font-size:16px;color:var(--body);margin:0 auto 12px;max-width:none}
 .meta{font-size:13.5px;color:var(--muted);margin:0;display:flex;gap:9px;justify-content:center;flex-wrap:wrap;align-items:center}
 .meta .dot{width:3px;height:3px;border-radius:50%;background:var(--muted);opacity:.7}
 /* ---------- 卡片 ---------- */
@@ -70,12 +70,12 @@ a.card .num{width:38px;height:38px;border-radius:12px;display:grid;place-items:c
   transition:transform .3s cubic-bezier(.22,.61,.36,1)}
 a.card:hover .num{transform:scale(1.07)}
 a.card .t{font-size:17.5px;font-weight:600;letter-spacing:-.015em;color:var(--ink);margin:0 0 6px}
-a.card .d{font-size:14.5px;color:var(--body);margin:0 0 10px;max-width:60ch}
+a.card .d{font-size:14px;color:var(--body);margin:0 0 10px;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 a.card .m{font-size:12.5px;color:var(--muted)}
 a.card .chev{align-self:center;font-size:20px;line-height:1;color:var(--muted);
   transition:transform .3s cubic-bezier(.22,.61,.36,1),color .3s}
 a.card:hover .chev{transform:translateX(4px);color:var(--accent)}
-footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* ---------- 准入弹窗 ---------- */
 .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px}
 .modal[hidden]{display:none}
@@ -148,6 +148,7 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
   .markWrap,.markWrap .markBig{width:86px;height:86px}.markWrap{border-radius:22px}.markWrap .markBig{border-radius:22px}
   a.card{grid-template-columns:auto 1fr;gap:14px;padding:18px}
   a.card .chev{display:none}
+  a.card .d{white-space:normal;overflow:visible}
 }
 @media print{.nav,.tgl,.modal,.toast{display:none}body{background:#fff}.rv,.hero>*{opacity:1!important;transform:none!important;animation:none!important}}
 </style>
@@ -179,28 +180,28 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
     <p class="eyebrow">内部培训 · 新员工入职</p>
     <h1>新员工培训材料</h1>
     <p class="slogan"><i>AI 云手机</i><i>全球部署</i><i>环境隔离</i></p>
-    <p class="lede">专为社媒增长打造的 AI 云手机平台。四份材料按 ① → ④ 顺序看：先技术底，再业务面。</p>
+    <p class="lede">专为社媒增长打造的 AI 云手机平台 · 按 ①→④ 顺序看：先技术底，再业务面</p>
     <p class="meta"><span>用 Chrome / Edge / Safari 打开，支持手机</span><span class="dot"></span><span>内部资料，请勿外传</span></p>
   </section>
   <section class="list">
     <a class="card rv" href="#" data-slug="arm"><span class="num">①</span>
       <div><div class="t">云手机 ARM 基础</div>
-      <div class="d">业务 + 技术底：卖什么、五类客户与场景、我们的优势、单窗口成本、竞品格局与对外口径。</div>
+      <div class="d">业务 + 技术底：卖什么、卖给谁、凭什么赢、怎么算钱。</div>
       <div class="m">🔒 13 个模块 · 含成本计算器、客户高频问答与随堂测验</div></div><span class="chev">›</span></a>
     <a class="card rv" href="#" data-slug="saas"><span class="num">②</span>
       <div><div class="t">云手机 SaaS 入门</div>
-      <div class="d">纯概念：云手机 SaaS 是什么、我们和客户各站在哪一层、为什么用户层按「窗口」计费。</div>
+      <div class="d">纯概念：SaaS 是什么、各层怎么分工、为什么按「窗口」计费。</div>
       <div class="m">🔒 7 课 · 约 20–30 分钟 · 含随堂测验与术语速查</div></div><span class="chev">›</span></a>
     <a class="card rv" href="#" data-slug="paas"><span class="num">③</span>
       <div><div class="t">云手机 PaaS 入门</div>
-      <div class="d">纯概念：云手机 PaaS 是什么、我们在这条链上的位置、七个核心词、对接流程与计费口径。</div>
+      <div class="d">纯概念：PaaS 在链上的位置、七个核心词、对接与计费口径。</div>
       <div class="m">🔒 10 课 · 约 45–60 分钟 · 含 95 峰值互动演示与随堂测验</div></div><span class="chev">›</span></a>
     <a class="card rv" href="#" data-slug="manual"><span class="num">④</span>
       <div><div class="t">商务手册</div>
-      <div class="d">客户侧内容都在这份：客户五类、一队两用与漏斗、渠道与代理、开场话术与竞品铁律。</div>
+      <div class="d">客户与打法：客户五类、渠道代理、开场话术与竞品铁律。</div>
       <div class="m">🔒 内部资料 · 严禁外发</div></div><span class="chev">›</span></a>
   </section>
-  <footer class="rv">内部培训用途，可离线打开 / 打印为 PDF；《商务手册》严禁外发；内容不代表对外报价或承诺，对外以合同为准。准入码仅限本人使用，请勿转发。</footer>
+  <footer class="rv">内部培训用途，可离线打开 / 打印为 PDF；《商务手册》严禁外发；内容不代表对外报价或承诺。准入码仅限本人使用，请勿转发。</footer>
 </main>
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mt">
   <div class="veil" data-close></div>
@@ -211,7 +212,7 @@ html[data-theme="dark"] .msg.ok{color:#30d158}
     <input id="pw" type="password" placeholder="QT-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-label="准入码">
     <div class="mrow"><button id="go" type="button">解锁</button><button id="cancel" type="button" class="ghost">取消</button></div>
     <div class="msg" id="msg" role="status"></div>
-    <p class="mhint">输入一次即可，本次浏览四份课件都不用再输；关掉浏览器自动失效。</p>
+    <p class="mhint">输入一次，本次浏览全程有效；关闭浏览器后自动失效。</p>
   </div>
 </div>
 <script>
